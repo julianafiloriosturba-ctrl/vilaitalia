@@ -1,171 +1,298 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Benvenuto • Pousada Vila Itália</title>
-  <meta name="description" content="Guia rápido da sua estadia na Pousada Vila Itália (Porto das Dunas)." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vila Itália • Guia da Estadia</title>
 
-  <!-- Preview (WhatsApp/Instagram/etc) -->
-  <meta property="og:title" content="Benvenuto • Pousada Vila Itália" />
-  <meta property="og:description" content="Informações essenciais da sua estadia (check-in, café, wifi, piscina e sua suíte)." />
-  <meta property="og:image" content="/logo.png" />
-  <meta property="og:type" content="website" />
+  <link rel="icon" href="./logo.png" />
+  <link rel="stylesheet" href="./style.css" />
 
-  <link rel="icon" href="/logo.png" />
-  <link rel="stylesheet" href="/style.css" />
+  <!-- PWA básico (opcional; se não tiver manifest, pode remover) -->
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#F6E6D3" />
 </head>
 
 <body>
-  <header class="top">
-    <img class="logo" src="/logo.png" alt="Pousada Vila Itália" />
-    <h1>🇮🇹 Benvenuto à Vila Itália 🇮🇹</h1>
-    <p class="sub">Guia rápido da sua estadia • Recepção online</p>
-  </header>
-
   <main class="wrap">
-    <section class="card">
+    <header class="top">
+      <img class="logo" src="./logo.png" alt="Pousada Vila Itália" />
+      <h1>🇮🇹 Benvenuto à Vila Itália 🇮🇹</h1>
+      <p class="subtitle">Guia rápido da sua estadia • Recepção online</p>
+    </header>
+
+    <!-- ENDEREÇO -->
+    <section class="card" id="endereco">
       <h2>📍 Endereço</h2>
-      <p>Rua Arraia, 452 – Porto das Dunas</p>
-      <div class="row">
-        <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir//Pousada+Vila+It%C3%A1lia+%E2%80%93+Porto+das+Dunas+-+Rua+Arraia,+452+-+Porto+das+Dunas,+Aquiraz+-+CE,+61700-000/">
+      <p>Rua Arraia, 452 — Porto das Dunas</p>
+
+      <div class="btn-row">
+        <a class="btn" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/dir//Pousada+Vila+It%C3%A1lia+%E2%80%93+Porto+das+Dunas+-+Rua+Arraia,+452+-+Porto+das+Dunas,+Aquiraz+-+CE,+61700-000/@-3.8473252,-38.3903078,3485m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x7c75d34fce6d6d9:0xacff4e91e2b99d4d!2m2!1d-38.3958236!2d-3.8475072?hl=pt-BR&entry=ttu">
           Abrir no Google Maps
         </a>
-        <a class="btn ghost" target="_blank" rel="noopener" href="https://www.instagram.com/pousadavilaitalia">
+
+        <a class="btn btn-outline" target="_blank" rel="noopener"
+           href="https://www.instagram.com/pousadavilaitalia?igsh=MWRxeGt6a3E3dmJkOQ==">
           Instagram
         </a>
       </div>
+
+      <div class="notice">
+        <b>IMPORTANTE:</b> por favor, informe a <b>placa do veículo</b> no WhatsApp.
+        <br/>Estacionamento rotativo — <b>só temos 7 vagas</b>.
+      </div>
     </section>
 
-    <section class="grid">
-      <a class="tile" href="#info">🛑 Informações</a>
-      <a class="tile" href="#wifi">📶 Wi-Fi</a>
-      <a class="tile" href="#piscina">🏊‍♂️ Piscina</a>
-      <a class="tile" href="#limpeza">🧹 Limpeza</a>
-      <a class="tile" href="#frigobar">🧊 Frigobar</a>
-      <a class="tile" href="#kids">🎈 Espaço Kids</a>
-      <a class="tile" href="#academia">🏋️‍♀️ Academia</a>
-      <a class="tile" href="#estacionamento">🚗 Estacionamento</a>
-      <a class="tile" href="#portao">🚪 Portão (App)</a>
-      <a class="tile" href="#suite">🔐 Minha Suíte</a>
-      <a class="tile" href="#contato">💬 Falar com a recepção</a>
+    <!-- MENU -->
+    <section class="menu">
+      <a class="chip" href="#informacoes">🛑 Informações</a>
+      <a class="chip" href="#wifi">📶 Wi-Fi</a>
+      <a class="chip" href="#piscina">🏊 Piscina</a>
+      <a class="chip" href="#limpeza">🧹 Limpeza</a>
+      <a class="chip" href="#frigobar">🧊 Frigobar</a>
+      <a class="chip" href="#kids">🎈 Espaço Kids</a>
+      <a class="chip" href="#academia">🏋️ Academia</a>
+      <a class="chip" href="#estacionamento">🚗 Estacionamento</a>
+      <a class="chip" href="#portao">🚪 Portão (App)</a>
+      <a class="chip chip-strong" href="#minha-suite">🔐 Minha Suíte</a>
+      <a class="chip" href="#trattoria">🍝 Trattoria</a>
+      <a class="chip" href="#passeios">🚌 Passeios</a>
+      <a class="chip" href="#parcerias">🤝 Parcerias</a>
+      <a class="chip" href="#contato">💬 Recepção</a>
     </section>
 
-    <section id="info" class="card">
+    <!-- INFORMAÇÕES -->
+    <section class="card" id="informacoes">
       <h2>🛑 Informações Importantes</h2>
-      <ul>
-        <li><b>Check-in:</b> a partir das <b>14:00</b></li>
-        <li><b>Check-out:</b> até <b>12:00</b></li>
-        <li><b>Café da manhã:</b> <b>07:30</b> às <b>09:30</b></li>
-      </ul>
-      <p class="muted">
-        Seu quarto conta com ar-condicionado, chuveiro elétrico, frigobar e TV (streaming com a conta do cliente).
-      </p>
-      <div class="warn">
-        <b>IMPORTANTE:</b> Por favor, informe a <b>placa do veículo</b> aqui nas mensagens.  
-        Estacionamento é <b>rotativo</b> e temos <b>apenas 7 vagas</b>.
+
+      <div class="grid-2">
+        <div class="box">
+          <h3>⏰ Horários</h3>
+          <ul class="list">
+            <li><b>Check-in:</b> a partir das <b>14:00</b></li>
+            <li><b>Check-out:</b> até <b>12:00</b></li>
+            <li><b>Café da manhã:</b> <b>07:30</b> às <b>09:30</b></li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>🛏️ No quarto</h3>
+          <ul class="list">
+            <li>Ar-condicionado</li>
+            <li>Chuveiro elétrico</li>
+            <li>Frigobar</li>
+            <li>TV digital (streaming com a conta do cliente)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="notice">
+        <b>IMPORTANTE:</b> Assim que entrar no quarto, <b>me avise</b>.
+        Se tiver qualquer dificuldade com o portão, <b>ligue para a recepção</b>.
+      </div>
+
+      <div class="notice light">
+        <b>IMPORTANTE:</b> Leia as informações com atenção. Tudo que você precisa está aqui no guia. 💙
       </div>
     </section>
 
-    <section id="wifi" class="card">
+    <!-- WIFI -->
+    <section class="card" id="wifi">
       <h2>📶 Wi-Fi</h2>
-      <div class="two">
+
+      <div class="grid-2">
         <div class="box">
-          <p><b>Rede:</b> Pousada_Vila_Italia</p>
-          <p><b>Senha:</b> Pousadavila1.</p>
-          <p class="muted">⚠️ Tem um <b>ponto</b> no final.</p>
+          <h3>Rede 1</h3>
+          <p><b>Pousada_Vila_Italia</b></p>
+          <p><b>Senha:</b> <code>Pousadavila1.</code></p>
+          <p class="muted small">*Tem que colocar o ponto “.” no final do número 1*</p>
         </div>
+
         <div class="box">
-          <p><b>Rede:</b> HÓSPEDES</p>
-          <p><b>Senha:</b> MAMMAMIA452</p>
+          <h3>Rede 2</h3>
+          <p><b>HÓSPEDES</b></p>
+          <p><b>Senha:</b> <code>MAMMAMIA452</code></p>
         </div>
       </div>
     </section>
 
-    <section id="piscina" class="card">
+    <!-- PISCINA -->
+    <section class="card" id="piscina">
       <h2>🏊‍♂️ Piscina</h2>
-      <ul>
+      <ul class="list">
         <li><b>Funcionamento:</b> 08:30 às 21:00</li>
-        <li><b>Profundidade:</b> até 2,20m</li>
+        <li><b>Profundidade:</b> até 2,20 m</li>
+        <li>⚠️ Crianças devem estar sempre acompanhadas.</li>
       </ul>
-      <div class="warn">⚠️ Crianças devem estar sempre acompanhadas.</div>
     </section>
 
-    <section id="academia" class="card">
+    <!-- ACADEMIA -->
+    <section class="card" id="academia">
       <h2>🏋️‍♀️ Academia</h2>
-      <p>Aberta até <b>21:00</b>.</p>
+      <p>Aberta até as <b>21:00</b>.</p>
     </section>
 
-    <section id="kids" class="card">
+    <!-- KIDS -->
+    <section class="card" id="kids">
       <h2>🎈 Espaço Kids</h2>
-      <p>Disponível até <b>21:00</b>.</p>
+      <p>Disponível até as <b>21:00</b>.</p>
     </section>
 
-    <section id="limpeza" class="card">
+    <!-- LIMPEZA -->
+    <section class="card" id="limpeza">
       <h2>🧹 Limpeza dos Quartos</h2>
-      <ul>
+      <ul class="list">
         <li><b>Solicitação:</b> 09:00 às 10:00</li>
         <li><b>Horário da limpeza:</b> 10:00 às 17:00</li>
       </ul>
+      <p class="muted small">*A limpeza ocorre conforme ordem de solicitações.*</p>
     </section>
 
-    <section id="frigobar" class="card"><div id="frigobar-tabela"></div>
+    <!-- FRIGOBAR -->
+    <section class="card" id="frigobar">
       <h2>🧊 Frigobar</h2>
-      <ul>
-        <li>No check-in, verifique o <b>inventário</b>.</li>
-        <li>No check-out, será cobrado conforme inventário.</li>
-        <li>Em caso de divergência, avise a recepção <b>imediatamente</b>.</li>
-      </ul>
-      <p class="muted">Tabela de valores pode ficar aqui também (a gente coloca depois).</p>
+      <div id="frigobar-tabela"></div>
     </section>
 
-    <section id="estacionamento" class="card">
-      <h2>🚗 Estacionamento rotativo</h2>
-      <div class="warn">
-        Temos <b>apenas 7 vagas</b>.  
-        <b>Informe a placa</b> do veículo no WhatsApp.
+    <!-- ESTACIONAMENTO -->
+    <section class="card" id="estacionamento">
+      <h2>🚗 Estacionamento</h2>
+      <p><b>Rotativo</b> — só temos <b>7 vagas</b>.</p>
+      <div class="notice">
+        <b>Por favor:</b> envie a <b>placa do veículo</b> para a recepção.
       </div>
     </section>
 
-    <section id="portao" class="card">
+    <!-- PORTÃO -->
+    <section class="card" id="portao">
       <h2>🚪 Portão (Aplicativo)</h2>
-      <p>O portão externo é pelo app <b>eWeLink</b>. O login/senha aparecem dentro da sua suíte (área protegida).</p>
-      <div class="warn">
-        Assim que entrar no quarto, <b>me avise</b>.  
-        Se tiver dificuldade com o portão, pode <b>ligar</b>.
+      <p>O portão externo é pelo app <b>eWeLink</b>.</p>
+
+      <div class="btn-row">
+        <a class="btn" target="_blank" rel="noopener"
+           href="https://play.google.com/store/apps/details?id=com.coolkit">
+          Baixar no Android
+        </a>
+        <a class="btn btn-outline" target="_blank" rel="noopener"
+           href="https://apps.apple.com/app/ewelink-smart-home/id1035163152">
+          Baixar no iPhone
+        </a>
       </div>
+
+      <div class="notice">
+        Assim que entrar no quarto, <b>me avise</b>. Se tiver dificuldade com o portão, <b>ligue para a recepção</b>.
+      </div>
+
+      <button class="btn btn-outline" id="btn-portao-login">Ver login/senha do portão (senha 0000)</button>
+      <div id="portao-login-box" class="hidden"></div>
+
+      <p class="muted small">*O login/senha aparece somente após abrir “Minha Suíte”.*</p>
     </section>
 
-    <section id="suite" class="card">
+    <!-- MINHA SUÍTE -->
+    <section class="card" id="minha-suite">
       <h2>🔐 Minha Suíte</h2>
-      <p class="muted">Digite o código que a recepção enviou no WhatsApp para ver as informações da sua suíte.</p>
+      <p>Digite o código que a recepção enviou no WhatsApp <b>após preencher o check-in</b> para ver as informações da sua suíte.</p>
 
-      <div class="row">
-        <input id="code" class="input" placeholder="Ex.: VI-101-ABCD" />
-        <button id="btnOpen" class="btn">Abrir</button>
+      <div class="suite-form">
+        <input id="suite-code" type="text" placeholder="Ex.: VI-101-ABCD" autocomplete="off" />
+        <button class="btn" id="btn-suite-open">Abrir</button>
       </div>
 
-      <div id="suiteBox" class="suiteBox hidden"></div>
+      <div id="suite-result" class="hidden"></div>
 
-      <p class="muted small">
-        Vídeo: como abrir a fechadura (recebe os códigos após o check-in online):  
-        <a target="_blank" rel="noopener" href="https://youtube.com/shorts/YmlOAkqjygI?si=YbRquIgReSbkkBG5">assistir</a>
+      <div class="video-box">
+        <a class="btn btn-big" target="_blank" rel="noopener"
+           href="https://youtube.com/shorts/YmlOAkqjygI?si=YbRquIgReSbkkBG5">
+          ▶️ ASSISTIR VÍDEO: como abrir a fechadura
+        </a>
+
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube.com/embed/YmlOAkqjygI"
+            title="Como abrir a fechadura"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRATTORIA -->
+    <section class="card" id="trattoria">
+      <h2>🍝 Trattoria Vila Itália</h2>
+
+      <p>
+        <b>Baixa estação:</b> sexta e sábado, <b>18h às 22h</b>.<br />
+        <b>Alta estação:</b> julho, dezembro, janeiro e feriados — <b>todos os dias, menos terça</b>.
       </p>
+
+      <a class="btn" target="_blank" rel="noopener" href="http://app.anota.ai/p/trattoria-vila-italia">
+        Fazer pedido no cardápio online
+      </a>
+
+      <p class="muted small">Após o pedido, avise a recepção pelo WhatsApp.</p>
     </section>
 
-    <section id="contato" class="card">
-      <h2>💬 Recepção online</h2>
-      <p><b>WhatsApp:</b> +55 85 99172-7796</p>
-      <a class="btn" target="_blank" rel="noopener" href="https://wa.me/5585991727796">Abrir WhatsApp</a>
-      <p class="muted">Desejamos uma excelente estadia com a gente! 💙</p>
+    <!-- PASSEIOS -->
+    <section class="card" id="passeios">
+      <h2>🚌 Passeios com desconto</h2>
+      <p>Temos descontos em passeios. Fale com a gente:</p>
+
+      <a class="btn" target="_blank" rel="noopener" href="https://wa.me/5585997504570">
+        Chamar no WhatsApp (Passeios)
+      </a>
+
+      <ul class="list">
+        <li>Passeio de buggy</li>
+        <li>Jericoacoara (1 dia)</li>
+        <li>3 praias em 1 dia: Canoa Quebrada, Morro Branco e Praia das Fontes</li>
+      </ul>
     </section>
 
-    <footer class="foot">
-      <small>© Pousada Vila Itália • Porto das Dunas</small>
+    <!-- PARCERIAS -->
+    <section class="card" id="parcerias">
+      <h2>🤝 Parcerias</h2>
+
+      <div class="grid-2">
+        <div class="box">
+          <h3>⚡ Elektroid</h3>
+          <p>Estacionamento do Pinheiro</p>
+          <p><b>5% OFF</b> em qualquer item.</p>
+        </div>
+
+        <div class="box">
+          <h3>🌿 Parque Engenhoca</h3>
+          <p>Reservando pelo link, você ganha desconto:</p>
+          <a class="btn btn-outline" target="_blank" rel="noopener"
+             href="https://parqueengenhocaafiliados.com.br/?eng_token%2Fref=66">
+            Reservar com desconto
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="card" id="contato">
+      <h2>💬 Falar com a recepção</h2>
+      <p><b>Recepção Online:</b> +55 85 99172-7796</p>
+
+      <div class="btn-row">
+        <a class="btn" target="_blank" rel="noopener" href="https://wa.me/5585991727796">
+          WhatsApp Recepção
+        </a>
+        <a class="btn btn-outline" href="tel:+5585991727796">
+          Ligar
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>💙 Desejamos uma excelente estadia com a gente!</p>
     </footer>
   </main>
 
-  <script src="/suites.js"></script>
-  <script src="/app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
