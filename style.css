@@ -1,132 +1,238 @@
 :root{
-  --bg:#fbf7f0;
-  --card:#ffffff;
-  --text:#2b2b2b;
-  --muted:#6b6b6b;
-  --border:#eadfce;
+  --bg: #fbf4e8;
+  --card: #fff;
+  --text: #2b2b2b;
+  --muted: rgba(0,0,0,.62);
+  --border: rgba(0,0,0,.08);
+  --shadow: 0 10px 24px rgba(0,0,0,.06);
+  --accent: #222;
+  --chip: #fff;
+  --chipBorder: rgba(0,0,0,.12);
+  --notice: #fff6df;
 }
 
-*{box-sizing:border-box}
+*{ box-sizing: border-box; }
 body{
   margin:0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.wrap{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 22px 14px 40px;
 }
 
 .top{
   text-align:center;
-  padding:22px 12px 8px;
+  padding: 10px 0 18px;
 }
+
 .logo{
-  width:86px;
-  height:86px;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid var(--border);
-  background:#fff;
+  width: 78px;
+  height: 78px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 4px solid rgba(0,0,0,.06);
+  box-shadow: var(--shadow);
+  background: #fff;
 }
-h1{margin:10px 0 4px;font-size:22px}
-.sub{margin:0;color:var(--muted)}
 
-.wrap{max-width:980px;margin:0 auto;padding:12px}
+h1{
+  font-size: 28px;
+  margin: 12px 0 6px;
+  letter-spacing: .2px;
+}
+
+.subtitle{
+  margin:0;
+  color: var(--muted);
+}
+
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:16px;
-  margin:12px 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 16px 16px;
+  margin: 14px 0;
 }
-.grid{
+
+.card h2{
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.grid-2{
   display:grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap:10px;
-  margin:12px 0;
-}
-@media (min-width:780px){
-  .grid{grid-template-columns: repeat(4, minmax(0,1fr));}
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-.tile{
-  display:block;
+@media (max-width: 720px){
+  .grid-2{ grid-template-columns: 1fr; }
+  h1{ font-size: 24px; }
+}
+
+.box{
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 12px;
+  background: rgba(255,255,255,.7);
+}
+
+.box h3{
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.list{
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+.list li{ margin: 6px 0; }
+
+.notice{
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--notice);
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.notice.light{
+  background: #fff;
+}
+
+.menu{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0 6px;
+}
+
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--chip);
+  border: 1px solid var(--chipBorder);
   text-decoration:none;
-  color:var(--text);
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:12px;
-  text-align:center;
-  font-weight:600;
+  color: var(--text);
+  box-shadow: 0 6px 14px rgba(0,0,0,.04);
+  font-weight: 650;
+  font-size: 14px;
 }
 
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chip:hover{ transform: translateY(-1px); }
+
+.chip-strong{
+  border-color: rgba(0,0,0,.25);
+}
+
+.btn-row{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  border:0;
-  border-radius:12px;
-  padding:10px 14px;
-  font-weight:700;
-  background:#2b2b2b;
-  color:#fff;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: var(--accent);
+  color: #fff;
   text-decoration:none;
-  cursor:pointer;
-}
-.btn.ghost{
-  background:#fff;
-  color:#2b2b2b;
-  border:1px solid var(--border);
-}
-.input{
-  flex:1;
-  min-width:220px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:10px 12px;
-  font-size:16px;
-  background:#fff;
+  font-weight: 750;
+  cursor: pointer;
 }
 
-.muted{color:var(--muted)}
-.small{font-size:13px}
-.warn{
-  margin-top:10px;
-  padding:10px 12px;
-  border-radius:12px;
-  background:#fff7e6;
-  border:1px solid #f1d9a8;
+.btn-outline{
+  background: #fff;
+  color: #111;
 }
 
-.two{display:grid;grid-template-columns:1fr;gap:10px}
-@media (min-width:780px){
-  .two{grid-template-columns:1fr 1fr;}
-}
-.box{
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:12px;
-  background:#fff;
+.btn:hover{ filter: brightness(0.96); }
+
+.suite-form{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  margin-top: 10px;
 }
 
-.suiteBox{
-  margin-top:12px;
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:12px;
-  background:#fff;
+.suite-form input{
+  flex: 1;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.14);
+  font-size: 16px;
+  outline: none;
 }
-.hidden{display:none}
 
-.foot{
+.hidden{ display:none; }
+
+.small{ font-size: 13px; }
+.muted{ color: var(--muted); }
+
+.table-wrap{ margin-top: 10px; }
+.price-table{
+  width:100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.price-table th, .price-table td{
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.price-table th{
+  text-align:left;
+  font-weight: 800;
+}
+.price-table td:last-child,
+.price-table th:last-child{
+  text-align:right;
+  white-space: nowrap;
+}
+
+.video-box{ margin-top: 12px; }
+.btn-big{
+  padding: 14px 16px;
+  font-size: 16px;
+  font-weight: 900;
+  width: 100%;
+  text-align: center;
+}
+.video-embed{
+  margin-top: 12px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.10);
+}
+.video-embed iframe{
+  width:100%;
+  height: 340px;
+}
+@media (max-width: 700px){
+  .video-embed iframe{ height: 220px; }
+}
+
+.footer{
   text-align:center;
-  padding:20px 0 30px;
-  color:var(--muted);
+  margin-top: 20px;
+  color: var(--muted);
 }
-.table-wrap { margin-top: 10px; }
-.price-table { width: 100%; border-collapse: collapse; font-size: 15px; }
-.price-table th, .price-table td { padding: 10px 12px; border-bottom: 1px solid rgba(0,0,0,.08); }
-.price-table th { text-align: left; font-weight: 700; }
-.price-table td:last-child, .price-table th:last-child { text-align: right; white-space: nowrap; }
-.small { font-size: 13px; }
-.muted { opacity: .75; }
+code{
+  background: rgba(0,0,0,.06);
+  padding: 2px 6px;
+  border-radius: 8px;
+}
