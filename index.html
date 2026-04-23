@@ -268,7 +268,7 @@
         <div class="info-card-icon">🎬</div>
         <h3>Como abrir sua porta — Napoli</h3>
         <div class="video-wrap">
-          <iframe src="https://youtube.com/shorts/AG2VrmGhwsw?is=eBLShW2vL11BhbK_" allowfullscreen loading="lazy"></iframe>
+          <iframe src="https://www.youtube.com/embed/AG2VrmGhwsw" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
     </div>
@@ -587,7 +587,7 @@
   <div class="section-body">
     <div class="benefit-card">
       <div class="benefit-header"><span class="benefit-icon">🎢</span><span class="benefit-title">Beach Park</span><span class="benefit-discount">Desconto</span></div>
-      <div class="benefit-body"><p>Desconto especial nos ingressos do maior parque aquático do Brasil, a 700 metros da pousada.</p><p><strong style="color:var(--dark)">Como obter:</strong> Fale com a recepção antes da visita.</p></div>
+      <div class="benefit-body"><p>Desconto especial nos ingressos do maior parque aquático do Brasil, a 16 km da pousada.</p><p><strong style="color:var(--dark)">Como obter:</strong> Fale com a recepção antes da visita.</p></div>
     </div>
     <div class="benefit-card">
       <div class="benefit-header"><span class="benefit-icon">🌊</span><span class="benefit-title">Parque Engenhoca</span><span class="benefit-discount">Desconto + Água de Coco</span></div>
@@ -595,7 +595,7 @@
     </div>
     <div class="benefit-card">
       <div class="benefit-header"><span class="benefit-icon">⚡</span><span class="benefit-title">Elektroid</span><span class="benefit-discount">5% OFF</span></div>
-      <div class="benefit-body"><p>Capinha à prova d'água, cabinhos, fone, caixa de som, power bank.</p><p><strong style="color:var(--dark)">Onde:</strong> Estacionamento do EcoMall (Supermercado Pinheiro)<a href="https://maps.app.goo.gl/GbeZdrCwhGctuKyg9?g_st=ic"> localização clique aqui</a> </p></div>
+      <div class="benefit-body"><p>Capinha à prova d'água, cabinhos, fone, caixa de som, power bank.</p><p><strong style="color:var(--dark)">Onde:</strong> Estacionamento do EcoMall (Supermercado Pinheiro)</p></div>
     </div>
     <div class="benefit-card">
       <div class="benefit-header"><span class="benefit-icon">💝</span><span class="benefit-title">Pacotes Românticos</span><span class="benefit-discount">Surpresa no quarto</span></div>
@@ -866,6 +866,10 @@
 <button onclick="showAdminLogin()" style="position:fixed;bottom:16px;right:16px;z-index:998;background:rgba(26,20,16,.7);border:1px solid rgba(201,168,76,.25);color:rgba(201,168,76,.6);width:34px;height:34px;border-radius:50%;font-size:13px;cursor:pointer;backdrop-filter:blur(4px);padding:0">&#9881;</button>
 
 <script>
+var JSONBIN_ID = "69ea70b8856a682189666f33";
+var JSONBIN_KEY = "$2a$10$3tEM3pFBSlYb5jyvjaxUZuVB3N8CBjW6WgqyzF/E6tEaubo1L2fDu";
+var JSONBIN_URL = "https://api.jsonbin.io/v3/b/" + JSONBIN_ID;
+
 // ===== SUITE DATA =====
 var SUITES = {
   "vila101": { name:"Amalfi", number:"101", gateLogin:"laamalfi101@gmail.com", gatePass:"vilaitalia123" },
@@ -886,37 +890,49 @@ var SUITES = {
   "vila208": { name:"Genova", number:"208", gateLogin:"lagenova208@gmail.com", gatePass:"vilaitalia123", notes:["Mini cozinha disponivel no quarto", "AVISO: A camareira nao lava louca - deixe organizado o que for usado", "Secador de cabelo disponivel no quarto"] }
 };
 
-// TTLock passwords stored by suite code
-// Key: ttlock password, Value: suite code
 var ADMIN_PASS = "vilaitalia2025";
+var cachedTTLocks = null;
 
-function getTTLocks() {
-  try { return JSON.parse(localStorage.getItem("vi_ttlocks") || "{}"); } catch(e) { return {}; }
-}
-function saveTTLock(suiteCode, senha) {
-  var d = getTTLocks();
-  d[suiteCode] = senha;
-  localStorage.setItem("vi_ttlocks", JSON.stringify(d));
+// ===== JSONBIN FUNCTIONS =====
+function loadTTLocks(callback) {
+  if (cachedTTLocks) { callback(cachedTTLocks); return; }
+  fetch(JSONBIN_URL + "/latest", {
+    headers: { "X-Master-Key": JSONBIN_KEY, "X-Bin-Meta": "false" }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    cachedTTLocks = data.ttlocks || {};
+    callback(cachedTTLocks);
+  })
+  .catch(function() {
+    cachedTTLocks = {};
+    callback({});
+  });
 }
 
-// Build reverse lookup: ttlock password -> suite code
-function findSuiteByTTLock(input) {
-  // First check fixed TTLock (suite 107)
+function saveTTLocksCloud(ttlocks, callback) {
+  cachedTTLocks = ttlocks;
+  fetch(JSONBIN_URL, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Master-Key": JSONBIN_KEY
+    },
+    body: JSON.stringify({ ttlocks: ttlocks })
+  })
+  .then(function() { if (callback) callback(true); })
+  .catch(function() { if (callback) callback(false); });
+}
+
+function findSuiteByTTLock(input, ttlocks) {
   var keys = Object.keys(SUITES);
   for (var i = 0; i < keys.length; i++) {
     var code = keys[i];
-    if (SUITES[code].fixedTTLock && SUITES[code].fixedTTLock === input) {
-      return code;
-    }
+    if (SUITES[code].fixedTTLock && SUITES[code].fixedTTLock === input) return code;
   }
-  // Then check saved TTLocks
-  var ttlocks = getTTLocks();
   var tkeys = Object.keys(ttlocks);
   for (var j = 0; j < tkeys.length; j++) {
-    var sc = tkeys[j];
-    if (ttlocks[sc] === input) {
-      return sc;
-    }
+    if (ttlocks[tkeys[j]] === input) return tkeys[j];
   }
   return null;
 }
@@ -948,61 +964,54 @@ function checkCode() {
   var input = document.getElementById("codeInput").value.trim();
   var error = document.getElementById("codeError");
   var result = document.getElementById("suiteResult");
-
   if (!input) { error.textContent = "Digite a senha da sua porta"; return; }
-
-  // Find suite by TTLock password
-  var suiteCode = findSuiteByTTLock(input);
-  if (!suiteCode) {
-    error.textContent = "Senha nao encontrada. Verifique e tente novamente.";
-    result.style.display = "none";
-    return;
-  }
-
-  var suite = SUITES[suiteCode];
-  error.textContent = "";
-
-  document.getElementById("resultSuiteName").textContent = "Suite " + suite.name;
-  document.getElementById("resultSuiteNumber").textContent = "QUARTO " + suite.number;
-  document.getElementById("resultGateLogin").textContent = suite.gateLogin;
-  document.getElementById("resultGatePass").textContent = suite.gatePass;
-  document.getElementById("resultTTLock").textContent = input;
-  document.getElementById("ttlockFixed").style.display = "block";
-  document.getElementById("ttlockDynamic").style.display = "none";
-
-  document.getElementById("suite107video").style.display = (suiteCode === "vila107") ? "block" : "none";
-
-  var notesEl = document.getElementById("suiteNotes");
-  if (suite.notes && suite.notes.length > 0) {
-    var html = "";
-    for (var i = 0; i < suite.notes.length; i++) {
-      var note = suite.notes[i];
-      var isWarning = note.indexOf("AVISO:") === 0;
-      var isSauna = note.indexOf("SAUNA:") === 0;
-      var icon = isWarning ? "⚠️ " : isSauna ? "🧖 " : "✔ ";
-      var bg = isWarning ? "rgba(192,57,43,.08)" : "rgba(201,168,76,.08)";
-      var border = isWarning ? "rgba(192,57,43,.25)" : "rgba(201,168,76,.2)";
-      var color = isWarning ? "#C0392B" : "#2C2018";
-      var text = note.replace("AVISO: ", "").replace("SAUNA: ", "");
-      var extra = isSauna ? " <a href='https://www.youtube.com/shorts/0UWApzrVkTc' target='_blank' style='font-size:12px;color:#C4622D;font-weight:500;text-decoration:none;display:block;margin-top:4px'>Ver video: como usar a sauna</a>" : "";
-      html += "<div style='background:" + bg + ";border:1px solid " + border + ";border-radius:4px;padding:12px 14px;margin-bottom:8px;font-size:14px;color:" + color + ";line-height:1.6'>" + icon + text + extra + "</div>";
+  error.textContent = "Verificando...";
+  loadTTLocks(function(ttlocks) {
+    var suiteCode = findSuiteByTTLock(input, ttlocks);
+    if (!suiteCode) {
+      error.textContent = "Senha nao encontrada. Verifique e tente novamente.";
+      result.style.display = "none";
+      return;
     }
-    notesEl.innerHTML = html;
-    notesEl.style.display = "block";
-  } else {
-    notesEl.innerHTML = "";
-    notesEl.style.display = "none";
-  }
-
-  result.style.display = "block";
-  result.scrollIntoView({ behavior: "smooth" });
+    var suite = SUITES[suiteCode];
+    error.textContent = "";
+    document.getElementById("resultSuiteName").textContent = "Suite " + suite.name;
+    document.getElementById("resultSuiteNumber").textContent = "QUARTO " + suite.number;
+    document.getElementById("resultGateLogin").textContent = suite.gateLogin;
+    document.getElementById("resultGatePass").textContent = suite.gatePass;
+    document.getElementById("resultTTLock").textContent = input;
+    document.getElementById("ttlockFixed").style.display = "block";
+    document.getElementById("ttlockDynamic").style.display = "none";
+    document.getElementById("suite107video").style.display = (suiteCode === "vila107") ? "block" : "none";
+    var notesEl = document.getElementById("suiteNotes");
+    if (suite.notes && suite.notes.length > 0) {
+      var html = "";
+      for (var i = 0; i < suite.notes.length; i++) {
+        var note = suite.notes[i];
+        var isWarning = note.indexOf("AVISO:") === 0;
+        var isSauna = note.indexOf("SAUNA:") === 0;
+        var icon = isWarning ? "⚠️ " : isSauna ? "🧖 " : "✔ ";
+        var bg = isWarning ? "rgba(192,57,43,.08)" : "rgba(201,168,76,.08)";
+        var border = isWarning ? "rgba(192,57,43,.25)" : "rgba(201,168,76,.2)";
+        var color = isWarning ? "#C0392B" : "#2C2018";
+        var text = note.replace("AVISO: ", "").replace("SAUNA: ", "");
+        var extra = isSauna ? " <a href='https://www.youtube.com/shorts/0UWApzrVkTc' target='_blank' style='font-size:12px;color:#C4622D;font-weight:500;text-decoration:none;display:block;margin-top:4px'>Ver video: como usar a sauna</a>" : "";
+        html += "<div style='background:" + bg + ";border:1px solid " + border + ";border-radius:4px;padding:12px 14px;margin-bottom:8px;font-size:14px;color:" + color + ";line-height:1.6'>" + icon + text + extra + "</div>";
+      }
+      notesEl.innerHTML = html;
+      notesEl.style.display = "block";
+    } else {
+      notesEl.innerHTML = "";
+      notesEl.style.display = "none";
+    }
+    result.style.display = "block";
+    result.scrollIntoView({ behavior: "smooth" });
+  });
 }
 
 function copyField(id, btn) {
   var text = document.getElementById(id).textContent;
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(text).catch(function(){});
-  }
+  if (navigator.clipboard) { navigator.clipboard.writeText(text).catch(function(){}); }
   var orig = btn.textContent;
   btn.textContent = "OK";
   setTimeout(function(){ btn.textContent = orig; }, 1500);
@@ -1044,37 +1053,52 @@ function adminLogout() {
   showHome();
 }
 function renderAdminSuites() {
-  var ttlocks = getTTLocks();
   var container = document.getElementById("suiteListAdmin");
-  container.innerHTML = "";
-  var keys = Object.keys(SUITES);
-  for (var i = 0; i < keys.length; i++) {
-    var code = keys[i];
-    var suite = SUITES[code];
-    var current = suite.fixedTTLock || ttlocks[code] || "";
-    var isFixed = !!suite.fixedTTLock;
-    var item = document.createElement("div");
-    item.className = "suite-list-item";
-    if (isFixed) {
-      item.innerHTML = "<div><div class='suite-list-name'>" + suite.number + " - " + suite.name + "</div><div style='font-size:11px;color:rgba(245,240,232,.35);margin-top:2px'>Senha fixa da porta</div></div><div style='font-family:monospace;font-size:15px;color:var(--gold);letter-spacing:2px'>" + suite.fixedTTLock + " <span style='font-size:10px;color:rgba(245,240,232,.3)'>fixo</span></div>";
-    } else {
-      item.innerHTML = "<div><div class='suite-list-name'>" + suite.number + " - " + suite.name + "</div><div style='font-size:11px;color:rgba(245,240,232,.5);margin-top:2px'>" + (current ? "Senha atual: " + current : "Sem senha cadastrada") + "</div></div><div style='display:flex;align-items:center;gap:8px;flex-wrap:wrap'><input class='suite-ttlock-input' id='ttlock_" + code + "' value='" + current + "' placeholder='Nova senha TTLock'><button class='suite-save-btn' data-code='" + code + "'>Salvar</button></div><div class='suite-saved' id='saved_" + code + "'>Salvo!</div>";
-      (function(c) {
-        var btn = item.querySelector(".suite-save-btn");
-        btn.addEventListener("click", function(){ saveSuiteTTLock(c); });
-      })(code);
+  container.innerHTML = "<div style='color:rgba(245,240,232,.5);font-size:13px;padding:12px'>Carregando...</div>";
+  loadTTLocks(function(ttlocks) {
+    container.innerHTML = "";
+    var keys = Object.keys(SUITES);
+    for (var i = 0; i < keys.length; i++) {
+      var code = keys[i];
+      var suite = SUITES[code];
+      var current = suite.fixedTTLock || ttlocks[code] || "";
+      var isFixed = !!suite.fixedTTLock;
+      var item = document.createElement("div");
+      item.className = "suite-list-item";
+      if (isFixed) {
+        item.innerHTML = "<div><div class='suite-list-name'>" + suite.number + " - " + suite.name + "</div><div style='font-size:11px;color:rgba(245,240,232,.4);margin-top:2px'>Senha fixa</div></div><div style='font-family:monospace;font-size:15px;color:var(--gold);letter-spacing:2px'>" + suite.fixedTTLock + "</div>";
+      } else {
+        item.innerHTML = "<div><div class='suite-list-name'>" + suite.number + " - " + suite.name + "</div><div style='font-size:11px;color:rgba(245,240,232,.5);margin-top:2px'>" + (current ? "Atual: " + current : "Sem senha") + "</div></div><div style='display:flex;align-items:center;gap:8px;flex-wrap:wrap'><input class='suite-ttlock-input' id='ttlock_" + code + "' value='" + current + "' placeholder='Nova senha'><button class='suite-save-btn' data-code='" + code + "'>Salvar</button></div><div class='suite-saved' id='saved_" + code + "' style='display:none;font-size:12px;color:#7A8C6E'>Salvo!</div>";
+        (function(c) {
+          var btn = item.querySelector(".suite-save-btn");
+          btn.addEventListener("click", function(){ saveSuiteAdmin(c); });
+        })(code);
+      }
+      container.appendChild(item);
     }
-    container.appendChild(item);
-  }
+  });
 }
-function saveSuiteTTLock(code) {
+function saveSuiteAdmin(code) {
   var val = document.getElementById("ttlock_" + code).value.trim();
-  if (!val) { alert("Digite a senha TTLock."); return; }
-  saveTTLock(code, val);
-  var el = document.getElementById("saved_" + code);
-  el.style.display = "block";
-  setTimeout(function(){ el.style.display = "none"; }, 2000);
-  renderAdminSuites();
+  if (!val) { alert("Digite a senha."); return; }
+  var btn = document.querySelector("[data-code='" + code + "']");
+  if (btn) btn.textContent = "...";
+  loadTTLocks(function(ttlocks) {
+    ttlocks[code] = val;
+    saveTTLocksCloud(ttlocks, function(ok) {
+      var el = document.getElementById("saved_" + code);
+      if (ok) {
+        el.textContent = "Salvo na nuvem!";
+        el.style.color = "#7A8C6E";
+      } else {
+        el.textContent = "Erro ao salvar!";
+        el.style.color = "#C0392B";
+      }
+      el.style.display = "block";
+      if (btn) btn.textContent = "Salvar";
+      setTimeout(function(){ el.style.display = "none"; renderAdminSuites(); }, 2000);
+    });
+  });
 }
 </script>
 </body>
