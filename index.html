@@ -177,11 +177,11 @@
     <button class="back-btn" onclick="showHome()">← Voltar</button>
     <p class="hero-ornament" style="margin-bottom:10px">Acesso</p>
     <h2 class="section-title">Minha <em>Suíte</em></h2>
-    <p class="section-sub">Digite o código do seu quarto</p>
+    <p class="section-sub">Digite a senha da sua porta</p>
   </div>
   <div class="code-form">
     <div class="code-input-wrap">
-      <input type="text" class="code-input" id="codeInput" placeholder="ex: digite aqui" maxlength="10" oninput="this.value=this.value.toLowerCase().replace(/\s/g,'')">
+      <input type="text" class="code-input" id="codeInput" placeholder="Digite a senha da sua porta" maxlength="10" oninput="this.value=this.value.toLowerCase().replace(/\s/g,'')">
       <button class="code-btn" onclick="checkCode()">Acessar</button>
       <p class="code-error" id="codeError"></p>
     </div>
@@ -250,7 +250,8 @@
         </div>
       </div>
     </div>
-        <!-- PORTÃO PEQUENO -->
+
+    <!-- PORTÃO PEQUENO -->
     <div class="access-card" style="background:rgba(26,20,16,.85);border:1px solid rgba(201,168,76,.3)">
       <div class="access-card-label">🔐 Portão Pequeno Externo</div>
       <div class="access-item">
@@ -575,6 +576,7 @@
   </div>
   <div class="footer">Trattoria Vila Italia · (85) 99172-7796</div>
 </div>
+
 <!-- BENEFÍCIOS -->
 <div id="beneficios" class="section">
   <div class="section-header">
@@ -585,7 +587,7 @@
   <div class="section-body">
     <div class="benefit-card">
       <div class="benefit-header"><span class="benefit-icon">🎢</span><span class="benefit-title">Beach Park</span><span class="benefit-discount">Desconto</span></div>
-      <div class="benefit-body"><p>Desconto especial nos ingressos do maior parque aquático do Brasil, a 700m da pousada.</p><p><strong style="color:var(--dark)">Como obter:</strong> Fale com a recepção antes da visita.</p></div>
+      <div class="benefit-body"><p>Desconto especial nos ingressos do maior parque aquático do Brasil, a 16 km da pousada.</p><p><strong style="color:var(--dark)">Como obter:</strong> Fale com a recepção antes da visita.</p></div>
     </div>
     <div class="benefit-card">
       <div class="benefit-header"><span class="benefit-icon">🌊</span><span class="benefit-title">Parque Engenhoca</span><span class="benefit-discount">Desconto + Água de Coco</span></div>
@@ -593,11 +595,9 @@
     </div>
     <div class="benefit-card">
       <div class="benefit-header"><span class="benefit-icon">⚡</span><span class="benefit-title">Elektroid</span><span class="benefit-discount">5% OFF</span></div>
-      <div class="benefit-body"><p>Capinha à prova d'água, cabinhos, fone, caixa de som, power bank.</p><p><strong style="color:var(--dark)">Onde:</strong> Estacionamento do EcoMall (Supermercado Pinheiro)</p>
-        <p> <a href="https://maps.app.goo.gl/tCoNSVqVWxPAZxo97?g_st=ic"> Localização clica aqui! </a></p>
-      </div>
+      <div class="benefit-body"><p>Capinha à prova d'água, cabinhos, fone, caixa de som, power bank.</p><p><strong style="color:var(--dark)">Onde:</strong> Estacionamento do EcoMall (Supermercado Pinheiro)</p></div>
     </div>
-        <div class="benefit-card">
+    <div class="benefit-card">
       <div class="benefit-header"><span class="benefit-icon">💝</span><span class="benefit-title">Pacotes Românticos</span><span class="benefit-discount">Surpresa no quarto</span></div>
       <div class="benefit-body">
         <p style="margin-bottom:14px">Celebre o amor com uma surpresa especial preparada no seu quarto!</p>
@@ -636,6 +636,7 @@
         <p style="font-size:13px;color:var(--dark);font-weight:500;margin-top:12px">Como contratar: fale pelo WhatsApp antes do check-in 💬</p>
       </div>
     </div>
+
     <div class="benefit-card">
       <div class="benefit-header"><span class="benefit-icon">🌴</span><span class="benefit-title">Passeios com Desconto</span><span class="benefit-discount">Preço especial</span></div>
       <div class="benefit-body"><p>Preços especiais em passeios pela região. Consulte a aba <strong style="color:var(--dark)">Passeios</strong>.</p></div>
@@ -670,6 +671,7 @@
   </div>
   <div class="footer">Vila Italia · Aquiraz · Ceará</div>
 </div>
+
 
 <!-- CHECK-IN ONLINE -->
 <div id="checkin" class="section">
@@ -719,6 +721,7 @@
       </div>
       <p style="margin-top:8px;font-size:13px">Isso ajuda a identificar rapidamente caso algum veículo esteja atrapalhando a circulação. Estacionamento rotativo — apenas 7 vagas.</p>
     </div>
+
     <div class="info-card" style="background:var(--dark);border-color:var(--gold)">
       <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:600">Passo a Passo</div>
       <div class="step"><div class="step-num">1</div><div class="step-text">Preencha o cadastro completo (link abaixo)</div></div>
@@ -836,7 +839,7 @@
   <div class="admin-login">
     <div class="admin-login-box">
       <h2>Painel Admin</h2>
-      <p>Vila Italia · Gerenciar senhas TTLock</p>
+      <p>Vila Italia · Cadastrar senhas por reserva</p>
       <input type="password" class="admin-input" id="adminPass" placeholder="Senha" onkeydown="if(event.key==='Enter')adminLogin()">
       <button class="admin-btn" onclick="adminLogin()">Entrar</button>
       <button class="admin-btn secondary" onclick="showHome()">← Voltar</button>
@@ -852,13 +855,15 @@
     <button class="admin-logout" onclick="adminLogout()">Sair</button>
   </div>
   <div class="admin-content">
-    <div class="admin-section-title">Atualizar senha TTLock por suíte</div>
+    <div class="admin-section-title">Cadastrar senha TTLock por reserva</div>
     <p style="font-size:13px;color:rgba(245,240,232,.45);margin-bottom:16px;line-height:1.6">As senhas TTLock mudam a cada reserva. Atualize aqui após gerar no app TTLock. A Suíte 107 Napoli usa senha fixa.</p>
     <div id="suiteListAdmin"></div>
   </div>
 </div>
 
 <div id="adminTrigger" style="position:fixed;bottom:0;right:0;width:60px;height:60px;z-index:999;opacity:0;cursor:default" onclick="adminTap()"></div>
+
+<button onclick="showAdminLogin()" style="position:fixed;bottom:16px;right:16px;z-index:998;background:rgba(26,20,16,.7);border:1px solid rgba(201,168,76,.25);color:rgba(201,168,76,.6);width:34px;height:34px;border-radius:50%;font-size:13px;cursor:pointer;backdrop-filter:blur(4px);padding:0">&#9881;</button>
 
 <script>
 // ===== SUITE DATA =====
@@ -881,13 +886,39 @@ var SUITES = {
   "vila208": { name:"Genova", number:"208", gateLogin:"lagenova208@gmail.com", gatePass:"vilaitalia123", notes:["Mini cozinha disponivel no quarto", "AVISO: A camareira nao lava louca - deixe organizado o que for usado", "Secador de cabelo disponivel no quarto"] }
 };
 
+// TTLock passwords stored by suite code
+// Key: ttlock password, Value: suite code
 var ADMIN_PASS = "vilaitalia2025";
 
 function getTTLocks() {
   try { return JSON.parse(localStorage.getItem("vi_ttlocks") || "{}"); } catch(e) { return {}; }
 }
-function saveTTLock(code, senha) {
-  var d = getTTLocks(); d[code] = senha; localStorage.setItem("vi_ttlocks", JSON.stringify(d));
+function saveTTLock(suiteCode, senha) {
+  var d = getTTLocks();
+  d[suiteCode] = senha;
+  localStorage.setItem("vi_ttlocks", JSON.stringify(d));
+}
+
+// Build reverse lookup: ttlock password -> suite code
+function findSuiteByTTLock(input) {
+  // First check fixed TTLock (suite 107)
+  var keys = Object.keys(SUITES);
+  for (var i = 0; i < keys.length; i++) {
+    var code = keys[i];
+    if (SUITES[code].fixedTTLock && SUITES[code].fixedTTLock === input) {
+      return code;
+    }
+  }
+  // Then check saved TTLocks
+  var ttlocks = getTTLocks();
+  var tkeys = Object.keys(ttlocks);
+  for (var j = 0; j < tkeys.length; j++) {
+    var sc = tkeys[j];
+    if (ttlocks[sc] === input) {
+      return sc;
+    }
+  }
+  return null;
 }
 
 // ===== NAV =====
@@ -914,39 +945,32 @@ function showHome() {
 
 // ===== SUITE ACCESS =====
 function checkCode() {
-  var input = document.getElementById("codeInput").value.trim().toLowerCase().replace(/\s/g,"");
+  var input = document.getElementById("codeInput").value.trim();
   var error = document.getElementById("codeError");
   var result = document.getElementById("suiteResult");
 
-  if (!input) { error.textContent = "Digite o codigo do seu quarto (ex: vila101)"; return; }
+  if (!input) { error.textContent = "Digite a senha da sua porta"; return; }
 
-  var suite = SUITES[input];
-  if (!suite) { error.textContent = "Codigo nao encontrado. Verifique e tente novamente."; result.style.display = "none"; return; }
+  // Find suite by TTLock password
+  var suiteCode = findSuiteByTTLock(input);
+  if (!suiteCode) {
+    error.textContent = "Senha nao encontrada. Verifique e tente novamente.";
+    result.style.display = "none";
+    return;
+  }
 
+  var suite = SUITES[suiteCode];
   error.textContent = "";
+
   document.getElementById("resultSuiteName").textContent = "Suite " + suite.name;
   document.getElementById("resultSuiteNumber").textContent = "QUARTO " + suite.number;
   document.getElementById("resultGateLogin").textContent = suite.gateLogin;
   document.getElementById("resultGatePass").textContent = suite.gatePass;
+  document.getElementById("resultTTLock").textContent = input;
+  document.getElementById("ttlockFixed").style.display = "block";
+  document.getElementById("ttlockDynamic").style.display = "none";
 
-  if (suite.fixedTTLock) {
-    document.getElementById("resultTTLock").textContent = suite.fixedTTLock;
-    document.getElementById("ttlockFixed").style.display = "block";
-    document.getElementById("ttlockDynamic").style.display = "none";
-  } else {
-    var ttlocks = getTTLocks();
-    var saved = ttlocks[input];
-    if (saved) {
-      document.getElementById("resultTTLock").textContent = saved;
-      document.getElementById("ttlockFixed").style.display = "block";
-      document.getElementById("ttlockDynamic").style.display = "none";
-    } else {
-      document.getElementById("ttlockFixed").style.display = "none";
-      document.getElementById("ttlockDynamic").style.display = "block";
-    }
-  }
-
-  document.getElementById("suite107video").style.display = (input === "vila107") ? "block" : "none";
+  document.getElementById("suite107video").style.display = (suiteCode === "vila107") ? "block" : "none";
 
   var notesEl = document.getElementById("suiteNotes");
   if (suite.notes && suite.notes.length > 0) {
@@ -1019,9 +1043,6 @@ function adminLogout() {
   document.getElementById("adminPanel").style.display = "none";
   showHome();
 }
-function onSuiteChange() {
-  document.getElementById("napoli107note").style.display = (document.getElementById("adminSuite").value === "107") ? "block" : "none";
-}
 function renderAdminSuites() {
   var ttlocks = getTTLocks();
   var container = document.getElementById("suiteListAdmin");
@@ -1035,9 +1056,9 @@ function renderAdminSuites() {
     var item = document.createElement("div");
     item.className = "suite-list-item";
     if (isFixed) {
-      item.innerHTML = "<div><div class='suite-list-name'>" + suite.number + " - " + suite.name + "</div><div style='font-size:11px;color:rgba(245,240,232,.35);margin-top:2px'>Codigo: " + code + "</div></div><div style='font-family:monospace;font-size:15px;color:var(--gold);letter-spacing:2px'>" + suite.fixedTTLock + " <span style='font-size:10px;color:rgba(245,240,232,.3)'>fixo</span></div>";
+      item.innerHTML = "<div><div class='suite-list-name'>" + suite.number + " - " + suite.name + "</div><div style='font-size:11px;color:rgba(245,240,232,.35);margin-top:2px'>Senha fixa da porta</div></div><div style='font-family:monospace;font-size:15px;color:var(--gold);letter-spacing:2px'>" + suite.fixedTTLock + " <span style='font-size:10px;color:rgba(245,240,232,.3)'>fixo</span></div>";
     } else {
-      item.innerHTML = "<div><div class='suite-list-name'>" + suite.number + " - " + suite.name + "</div><div style='font-size:11px;color:rgba(245,240,232,.35);margin-top:2px'>Codigo: " + code + "</div></div><div style='display:flex;align-items:center;gap:8px;flex-wrap:wrap'><input class='suite-ttlock-input' id='ttlock_" + code + "' value='" + current + "' placeholder='Senha TTLock'><button class='suite-save-btn' data-code='" + code + "'>Salvar</button></div><div class='suite-saved' id='saved_" + code + "'>Salvo!</div>";
+      item.innerHTML = "<div><div class='suite-list-name'>" + suite.number + " - " + suite.name + "</div><div style='font-size:11px;color:rgba(245,240,232,.5);margin-top:2px'>" + (current ? "Senha atual: " + current : "Sem senha cadastrada") + "</div></div><div style='display:flex;align-items:center;gap:8px;flex-wrap:wrap'><input class='suite-ttlock-input' id='ttlock_" + code + "' value='" + current + "' placeholder='Nova senha TTLock'><button class='suite-save-btn' data-code='" + code + "'>Salvar</button></div><div class='suite-saved' id='saved_" + code + "'>Salvo!</div>";
       (function(c) {
         var btn = item.querySelector(".suite-save-btn");
         btn.addEventListener("click", function(){ saveSuiteTTLock(c); });
@@ -1053,6 +1074,7 @@ function saveSuiteTTLock(code) {
   var el = document.getElementById("saved_" + code);
   el.style.display = "block";
   setTimeout(function(){ el.style.display = "none"; }, 2000);
+  renderAdminSuites();
 }
 </script>
 </body>
