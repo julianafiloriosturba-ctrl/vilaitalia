@@ -144,6 +144,14 @@
 
   .footer{text-align:center;padding:24px 16px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);border-top:1px solid rgba(74,55,40,.1);}
   @media(max-width:480px){.useful-grid{grid-template-columns:1fr;}.access-item{flex-direction:column;align-items:flex-start;}.suite-list-item{flex-direction:column;align-items:flex-start;}}
+  /* ACCORDION */
+  .accordion-item { background:var(--dark); border-radius:4px; margin-bottom:8px; overflow:hidden; }
+  .accordion-btn { width:100%; background:none; border:none; color:var(--cream); padding:16px 18px; font-size:14px; font-family:"DM Sans",sans-serif; font-weight:500; cursor:pointer; display:flex; justify-content:space-between; align-items:center; text-align:left; border-bottom:1px solid rgba(201,168,76,.1); transition:background .2s; }
+  .accordion-btn:hover { background:rgba(201,168,76,.08); }
+  .acc-arrow { color:var(--gold); font-size:12px; transition:transform .3s; }
+  .acc-arrow.open { transform:rotate(180deg); }
+  .accordion-body { padding:16px 18px; background:rgba(26,20,16,.8); }
+
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
   .hero>*{animation:fadeUp .7s ease forwards;opacity:0;}
   .hero>*:nth-child(1){animation-delay:.1s}.hero>*:nth-child(2){animation-delay:.25s}.hero>*:nth-child(3){animation-delay:.35s}.hero>*:nth-child(4){animation-delay:.45s}.hero>*:nth-child(5){animation-delay:.6s}
@@ -163,8 +171,9 @@
     <a class="nav-card" onclick="showSection('guia')">📋 Guia da Estadia</a>
     <a class="nav-card" onclick="showSection('regras')">📜 Regulamento</a>
     <a class="nav-card" onclick="showSection('restaurante')">🍕 Restaurante</a>
-    <a class="nav-card" onclick="showSection('beneficios')">🎁 Benefícios</a>
+    <a class="nav-card" onclick="showSection('beneficios')">✨ Melhore sua Estadia</a>
     <a class="nav-card" onclick="showSection('passeios')">🌊 Passeios</a>
+    <a class="nav-card" onclick="showSection('parcerias')">🤝 Parcerias</a>
     <a class="nav-card" onclick="showSection('checkin')">✅ Check-in Online</a>
     <a class="nav-card" onclick="showSection('checkout')">🚪 Checkout</a>
     <a class="nav-card" onclick="showSection('avaliacao')">⭐ Avaliação</a>
@@ -190,123 +199,158 @@
     <h2 class="suite-name" id="resultSuiteName"></h2>
     <p class="suite-number" id="resultSuiteNumber"></p>
 
-    <div id="suiteNotes" style="display:none"></div>
+    <div id="suiteNotes" style="display:none;margin-bottom:12px"></div>
 
-    <!-- PORTÃO EWELINK -->
-    <div class="access-card">
-      <div class="access-card-label">🚪 Portão do Estacionamento — App eWeLink</div>
-      <div style="font-size:13px;color:rgba(245,240,232,.85);margin-bottom:14px;line-height:1.7">
-        Use o app <strong style="color:rgba(245,240,232,.7)">eWeLink</strong> para abrir o portão grande do estacionamento e ligar a cascata da piscina.<br>
-        Faça login com os dados abaixo. Toque 1–2x no botão desejado.
-      </div>
-      <div class="access-item">
-        <span class="access-item-label">Login</span>
-        <span class="access-item-value mono" id="resultGateLogin"></span>
-        <button class="copy-btn" onclick="copyField('resultGateLogin',this)">Copiar</button>
-      </div>
-      <div class="access-item">
-        <span class="access-item-label">Senha</span>
-        <span class="access-item-value mono" id="resultGatePass"></span>
-        <button class="copy-btn" onclick="copyField('resultGatePass',this)">Copiar</button>
-      </div>
-      <div style="margin-top:14px;background:rgba(201,168,76,.08);border-radius:4px;padding:12px;">
-        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600">Como usar o app</div>
-        <div class="step"><div class="step-num">1</div><div class="step-text">Baixe o app <strong>eWeLink</strong>:
-          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-            <a href="https://apps.apple.com/br/app/ewelink/id1035163158" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(245,240,232,.12);border:1px solid rgba(245,240,232,.25);color:var(--cream);padding:8px 14px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.5px">🍎 App Store (iOS)</a>
-            <a href="https://play.google.com/store/apps/details?id=com.coolkit&pcampaignid=web_share" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(245,240,232,.12);border:1px solid rgba(245,240,232,.25);color:var(--cream);padding:8px 14px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.5px">🤖 Google Play (Android)</a>
-          </div>
-        </div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Abra o app → toque em <strong>Entrar</strong> → insira o login e senha acima</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">Na tela inicial, toque <strong>1 ou 2 vezes</strong> em <strong>Portão Vila Italia</strong> para abrir o portão do estacionamento</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-text">Para ligar a <strong>cascata da piscina</strong>, toque no botão correspondente na mesma tela</div></div>
-        <div style="font-size:12px;color:rgba(245,240,232,.75);margin-top:10px">⚠️ Digite login e senha exatamente como mostrado, tudo em minúsculo</div>
-      </div>
-    </div>
+    <!-- ACCORDION ITEMS -->
 
-    <!-- PORTA DA SUÍTE TTLOCK -->
-    <div class="access-card" id="ttlockCard">
-      <div class="access-card-label">🔑 Porta da Suíte — TTLock</div>
-      <div id="ttlockFixed" style="display:none">
+    <!-- PORTÃO ESTACIONAMENTO -->
+    <div class="accordion-item" id="acc-portao">
+      <button class="accordion-btn" onclick="toggleAcc('portao')">
+        <span>🚪 Portão do Estacionamento</span><span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="body-portao" style="display:none">
+        <div style="font-size:13px;color:rgba(245,240,232,.8);margin-bottom:14px;line-height:1.7">
+          Use o app <strong style="color:var(--cream)">eWeLink</strong> para abrir o portão e ligar a cascata da piscina. Faça login com os dados abaixo e toque 1x no botão desejado.
+        </div>
         <div class="access-item">
-          <span class="access-item-label">Senha fixa</span>
-          <span class="access-item-value" id="resultTTLock" style="font-size:22px;letter-spacing:4px;font-weight:700;color:var(--gold-light)"></span>
-          <button class="copy-btn" onclick="copyField('resultTTLock',this)">Copiar</button>
+          <span class="access-item-label">Login</span>
+          <span class="access-item-value mono" id="resultGateLogin"></span>
+          <button class="copy-btn" onclick="copyField('resultGateLogin',this)">Copiar</button>
         </div>
-      </div>
-      <div id="ttlockDynamic" style="display:none">
-        <div style="font-size:14px;color:rgba(245,240,232,.9);line-height:1.6">
-          A senha da sua porta é <strong style="color:rgba(245,240,232,.8)">temporária</strong> e foi enviada pela recepção junto com este código.<br><br>
-          Dúvidas? Chame a recepção pelo WhatsApp.
+        <div class="access-item">
+          <span class="access-item-label">Senha</span>
+          <span class="access-item-value mono" id="resultGatePass"></span>
+          <button class="copy-btn" onclick="copyField('resultGatePass',this)">Copiar</button>
         </div>
-      </div>
-      <div style="margin-top:14px;background:rgba(201,168,76,.08);border-radius:4px;padding:12px;">
-        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600">Como usar a fechadura</div>
-        <div class="step"><div class="step-num">1</div><div class="step-text">Digite a senha numérica no teclado da fechadura</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Pressione <strong>#</strong> para confirmar</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">Aguarde o bipe e o LED verde — a porta abrirá</div></div>
-        <div style="margin-top:10px">
-          <a href="https://www.youtube.com/shorts/YmlOAkqjygI" target="_blank" style="font-size:13px;color:var(--gold-light);text-decoration:none;letter-spacing:.5px;font-weight:500">▶ Ver vídeo: como funciona a fechadura TTLock →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- PORTÃO PEQUENO -->
-    <div class="access-card" style="background:rgba(26,20,16,.85);border:1px solid rgba(201,168,76,.3)">
-      <div class="access-card-label">🔐 Portão Pequeno Externo</div>
-      <div class="access-item">
-        <span class="access-item-label">Senha</span>
-        <span class="access-item-value" style="font-size:22px;font-weight:700;color:var(--cream);letter-spacing:4px">1111#</span>
-        <button class="copy-btn" onclick="navigator.clipboard.writeText('1111#')">Copiar</button>
-      </div>
-      <div style="font-size:12px;color:rgba(245,240,232,.8);margin-top:8px">⚠️ Sempre finalize com #</div>
-    </div>
-
-    <!-- VÍDEO 107 -->
-    <div id="suite107video" style="display:none;margin-top:14px">
-      <div class="info-card">
-        <div class="info-card-icon">🎬</div>
-        <h3>Como abrir sua porta — Napoli</h3>
-        <div class="video-wrap">
-          <iframe src="https://www.youtube.com/embed/AG2VrmGhwsw" allowfullscreen loading="lazy"></iframe>
+        <div style="background:rgba(201,168,76,.08);border-radius:4px;padding:12px;margin-top:14px">
+          <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600">Como usar</div>
+          <div class="step"><div class="step-num">1</div><div class="step-text">Baixe o app <strong>eWeLink</strong>:
+            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+              <a href="https://apps.apple.com/br/app/ewelink/id1035163158" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(245,240,232,.12);border:1px solid rgba(245,240,232,.25);color:var(--cream);padding:7px 12px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:500">🍎 App Store</a>
+              <a href="https://play.google.com/store/apps/details?id=com.coolkit" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(245,240,232,.12);border:1px solid rgba(245,240,232,.25);color:var(--cream);padding:7px 12px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:500">🤖 Google Play</a>
+            </div>
+          </div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Entre com o login e senha acima</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Toque em <strong>Portão Vila Italia</strong> para abrir</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text">Para a <strong>cascata da piscina</strong>, toque no botão correspondente</div></div>
+          <div style="font-size:12px;color:rgba(245,240,232,.6);margin-top:10px;line-height:1.7">
+            ⚠️ O portão fecha automaticamente após 1 minuto<br>
+            ⚠️ Abra somente quando estiver na frente do portão<br>
+            ⚠️ Tudo em minusculo
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- PORTA DA SUITE -->
+    <div class="accordion-item" id="acc-porta">
+      <button class="accordion-btn" onclick="toggleAcc('porta')">
+        <span>🔑 Porta da Suíte</span><span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="body-porta" style="display:none">
+        <div id="ttlockFixed">
+          <div class="access-item" style="margin-bottom:10px">
+            <span class="access-item-label">Senha</span>
+            <span class="access-item-value" id="resultTTLock" style="font-size:22px;letter-spacing:4px;font-weight:700;color:var(--gold-light)"></span>
+            <button class="copy-btn" onclick="copyField('resultTTLock',this)">Copiar</button>
+          </div>
+        </div>
+        <div id="ttlockDynamic" style="display:none;font-size:14px;color:rgba(245,240,232,.85);line-height:1.6;margin-bottom:10px">
+          A senha da sua porta e <strong style="color:var(--cream)">temporaria</strong> e foi enviada pela recepcao junto com este codigo. Duvidas? Chame pelo WhatsApp.
+        </div>
+        <div style="background:rgba(201,168,76,.08);border-radius:4px;padding:12px;margin-top:8px">
+          <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600">Como usar</div>
+          <div class="step"><div class="step-num">1</div><div class="step-text">Digite a senha no teclado da fechadura</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Pressione <strong>#</strong> para confirmar</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Aguarde o bipe verde — a porta abre</div></div>
+          <a href="https://www.youtube.com/shorts/YmlOAkqjygI" target="_blank" style="display:block;margin-top:10px;font-size:13px;color:var(--gold-light);text-decoration:none;font-weight:500">▶ Ver video: como usar a fechadura →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PORTÃO PEDESTRE -->
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggleAcc('pedestre')">
+        <span>🚶 Portão Pedestre</span><span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="body-pedestre" style="display:none">
+        <div class="access-item">
+          <span class="access-item-label">Senha</span>
+          <span class="access-item-value" style="font-size:22px;font-weight:700;color:var(--cream);letter-spacing:4px">1111#</span>
+          <button class="copy-btn" onclick="navigator.clipboard.writeText('1111#')">Copiar</button>
+        </div>
+        <div style="font-size:12px;color:rgba(245,240,232,.6);margin-top:10px">⚠️ Sempre finalize com #</div>
+      </div>
+    </div>
+
+    <!-- CONSUMO -->
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggleAcc('consumo');showConsumo()">
+        <span>🧾 Meu Consumo — Clique aqui para ver</span><span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="body-consumo" style="display:none">
+        <div id="consumoList"></div>
+        <div id="consumoEmpty" style="font-size:14px;color:rgba(245,240,232,.4);text-align:center;padding:16px">Nenhum consumo lancado ainda.</div>
+        <div id="consumoTotal" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(201,168,76,.2);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.5)">Total</span>
+          <span id="consumoTotalValue" style="font-size:22px;font-weight:700;color:var(--gold-light)"></span>
+        </div>
+      </div>
+    </div>
 
     <!-- FRIGOBAR -->
-    <div class="info-card" style="margin-top:14px">
-      <div class="info-card-icon">🧊</div>
-      <h3 style="margin-bottom:4px">Frigobar</h3>
-      <p style="font-size:12px;color:var(--text-light);margin-bottom:14px">Verifique o inventário no check-in. Informe o consumo no checkout.</p>
-      <div style="overflow-x:auto">
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggleAcc('frigobar')">
+        <span>🧊 Frigobar</span><span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="body-frigobar" style="display:none">
+        <p style="font-size:12px;color:rgba(245,240,232,.55);margin-bottom:14px">Verifique o inventario no check-in. Informe o consumo no checkout.</p>
         <table style="width:100%;border-collapse:collapse;font-size:13px">
           <thead>
-            <tr style="background:var(--dark);color:var(--cream)">
-              <th style="padding:8px 10px;text-align:left;font-weight:500;letter-spacing:1px;font-size:11px">QT</th>
-              <th style="padding:8px 10px;text-align:left;font-weight:500;letter-spacing:1px;font-size:11px">Item</th>
-              <th style="padding:8px 10px;text-align:right;font-weight:500;letter-spacing:1px;font-size:11px">Preço</th>
+            <tr style="background:rgba(201,168,76,.15);color:var(--cream)">
+              <th style="padding:8px 10px;text-align:left;font-weight:500;font-size:11px;letter-spacing:1px">QT</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:500;font-size:11px;letter-spacing:1px">Item</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:500;font-size:11px;letter-spacing:1px">Preco</th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom:1px solid rgba(74,55,40,.08)"><td style="padding:8px 10px;color:var(--text-light)">02</td><td style="padding:8px 10px;color:var(--dark)">Água</td><td style="padding:8px 10px;text-align:right;font-weight:600;color:var(--terracotta)">R$5,00</td></tr>
-            <tr style="border-bottom:1px solid rgba(74,55,40,.08)"><td style="padding:8px 10px;color:var(--text-light)">02</td><td style="padding:8px 10px;color:var(--dark)">Água c/ Gás</td><td style="padding:8px 10px;text-align:right;font-weight:600;color:var(--terracotta)">R$5,00</td></tr>
-            <tr style="border-bottom:1px solid rgba(74,55,40,.08)"><td style="padding:8px 10px;color:var(--text-light)">02</td><td style="padding:8px 10px;color:var(--dark)">Coca-Cola</td><td style="padding:8px 10px;text-align:right;font-weight:600;color:var(--terracotta)">R$8,00</td></tr>
-            <tr style="border-bottom:1px solid rgba(74,55,40,.08)"><td style="padding:8px 10px;color:var(--text-light)">01</td><td style="padding:8px 10px;color:var(--dark)">Coca Zero</td><td style="padding:8px 10px;text-align:right;font-weight:600;color:var(--terracotta)">R$8,00</td></tr>
-            <tr style="border-bottom:1px solid rgba(74,55,40,.08)"><td style="padding:8px 10px;color:var(--text-light)">01</td><td style="padding:8px 10px;color:var(--dark)">Guaraná</td><td style="padding:8px 10px;text-align:right;font-weight:600;color:var(--terracotta)">R$8,00</td></tr>
-            <tr style="border-bottom:1px solid rgba(74,55,40,.08)"><td style="padding:8px 10px;color:var(--text-light)">01</td><td style="padding:8px 10px;color:var(--dark)">Schweppes</td><td style="padding:8px 10px;text-align:right;font-weight:600;color:var(--terracotta)">R$8,00</td></tr>
-            <tr style="border-bottom:1px solid rgba(74,55,40,.08)"><td style="padding:8px 10px;color:var(--text-light)">02</td><td style="padding:8px 10px;color:var(--dark)">Cerveja Heineken</td><td style="padding:8px 10px;text-align:right;font-weight:600;color:var(--terracotta)">R$12,00</td></tr>
-            <tr style="border-bottom:1px solid rgba(74,55,40,.08)"><td style="padding:8px 10px;color:var(--text-light)">02</td><td style="padding:8px 10px;color:var(--dark)">Achocolatado</td><td style="padding:8px 10px;text-align:right;font-weight:600;color:var(--terracotta)">R$6,00</td></tr>
-            <tr style="border-bottom:1px solid rgba(74,55,40,.08)"><td style="padding:8px 10px;color:var(--text-light)">02</td><td style="padding:8px 10px;color:var(--dark)">Biscoito Doce</td><td style="padding:8px 10px;text-align:right;font-weight:600;color:var(--terracotta)">R$5,00</td></tr>
-            <tr><td style="padding:8px 10px;color:var(--text-light)">01</td><td style="padding:8px 10px;color:var(--dark)">Amendoim ou Salgadinho</td><td style="padding:8px 10px;text-align:right;font-weight:600;color:var(--terracotta)">R$5,00</td></tr>
+            <tr style="border-bottom:1px solid rgba(245,240,232,.08)"><td style="padding:8px 10px;color:rgba(245,240,232,.5)">02</td><td style="padding:8px 10px;color:var(--cream)">Agua</td><td style="padding:8px 10px;text-align:right;color:var(--gold)">R$5,00</td></tr>
+            <tr style="border-bottom:1px solid rgba(245,240,232,.08)"><td style="padding:8px 10px;color:rgba(245,240,232,.5)">02</td><td style="padding:8px 10px;color:var(--cream)">Agua com Gas</td><td style="padding:8px 10px;text-align:right;color:var(--gold)">R$5,00</td></tr>
+            <tr style="border-bottom:1px solid rgba(245,240,232,.08)"><td style="padding:8px 10px;color:rgba(245,240,232,.5)">02</td><td style="padding:8px 10px;color:var(--cream)">Coca-Cola</td><td style="padding:8px 10px;text-align:right;color:var(--gold)">R$8,00</td></tr>
+            <tr style="border-bottom:1px solid rgba(245,240,232,.08)"><td style="padding:8px 10px;color:rgba(245,240,232,.5)">01</td><td style="padding:8px 10px;color:var(--cream)">Coca Zero</td><td style="padding:8px 10px;text-align:right;color:var(--gold)">R$8,00</td></tr>
+            <tr style="border-bottom:1px solid rgba(245,240,232,.08)"><td style="padding:8px 10px;color:rgba(245,240,232,.5)">01</td><td style="padding:8px 10px;color:var(--cream)">Guarana</td><td style="padding:8px 10px;text-align:right;color:var(--gold)">R$8,00</td></tr>
+            <tr style="border-bottom:1px solid rgba(245,240,232,.08)"><td style="padding:8px 10px;color:rgba(245,240,232,.5)">01</td><td style="padding:8px 10px;color:var(--cream)">Schweppes</td><td style="padding:8px 10px;text-align:right;color:var(--gold)">R$8,00</td></tr>
+            <tr style="border-bottom:1px solid rgba(245,240,232,.08)"><td style="padding:8px 10px;color:rgba(245,240,232,.5)">02</td><td style="padding:8px 10px;color:var(--cream)">Cerveja Heineken</td><td style="padding:8px 10px;text-align:right;color:var(--gold)">R$12,00</td></tr>
+            <tr style="border-bottom:1px solid rgba(245,240,232,.08)"><td style="padding:8px 10px;color:rgba(245,240,232,.5)">02</td><td style="padding:8px 10px;color:var(--cream)">Achocolatado</td><td style="padding:8px 10px;text-align:right;color:var(--gold)">R$6,00</td></tr>
+            <tr style="border-bottom:1px solid rgba(245,240,232,.08)"><td style="padding:8px 10px;color:rgba(245,240,232,.5)">02</td><td style="padding:8px 10px;color:var(--cream)">Biscoito Doce</td><td style="padding:8px 10px;text-align:right;color:var(--gold)">R$5,00</td></tr>
+            <tr><td style="padding:8px 10px;color:rgba(245,240,232,.5)">01</td><td style="padding:8px 10px;color:var(--cream)">Amendoim ou Salgadinho</td><td style="padding:8px 10px;text-align:right;color:var(--gold)">R$5,00</td></tr>
           </tbody>
         </table>
       </div>
-      <p style="font-size:11px;color:var(--text-light);margin-top:10px;text-align:center">📞 (85) 99172-7796</p>
+    </div>
+
+    <!-- SAUNA (suite 206 only) -->
+    <div class="accordion-item" id="acc-sauna" style="display:none">
+      <button class="accordion-btn" onclick="toggleAcc('sauna')">
+        <span>🧖 Sauna</span><span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="body-sauna" style="display:none">
+        <div class="video-wrap"><iframe src="https://www.youtube.com/embed/0UWApzrVkTc" allowfullscreen loading="lazy"></iframe></div>
+      </div>
+    </div>
+
+    <!-- VIDEO 107 -->
+    <div class="accordion-item" id="acc-107" style="display:none">
+      <button class="accordion-btn" onclick="toggleAcc('vid107')">
+        <span>🎬 Como abrir sua porta</span><span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="body-vid107" style="display:none">
+        <div class="video-wrap"><iframe src="https://www.youtube.com/embed/AG2VrmGhwsw" allowfullscreen loading="lazy"></iframe></div>
+      </div>
     </div>
 
     <div style="margin-top:18px;text-align:center">
-      <p style="font-size:13px;color:var(--text-light);line-height:1.8">Dúvidas? Fale conosco pelo WhatsApp.<br>Boa estadia! 🇮🇹</p>
+      <p style="font-size:13px;color:var(--text-light);line-height:1.8">Duvidas? Fale conosco pelo WhatsApp.<br>Boa estadia! 🇮🇹</p>
     </div>
   </div>
 </div>
@@ -358,13 +402,13 @@
       <div style="margin-top:10px">
         <div style="background:rgba(74,55,40,.05);border-radius:4px;padding:14px;margin-bottom:10px">
           <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-light);margin-bottom:8px">Rede Principal</div>
-          <div class="horario-row" style="padding:6px 0"><span class="horario-day">Rede</span><span class="horario-time">Pousada_Vila_Italia</span></div>
+          <div class="horario-row" style="padding:6px 0"><span class="horario-day">Rede</span><span class="horario-time">Pousada_Vila_Italia 2G/5G</span></div>
           <div class="horario-row" style="padding:6px 0;border-bottom:none"><span class="horario-day">Senha</span><span class="horario-time">Pousadavila1.</span></div>
           <p style="font-size:11px;color:var(--text-light);margin-top:6px">⚠️ Inclua o ponto <strong>.</strong> no final da senha</p>
         </div>
         <div style="background:rgba(74,55,40,.05);border-radius:4px;padding:14px">
           <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-light);margin-bottom:8px">Rede Hóspedes</div>
-          <div class="horario-row" style="padding:6px 0"><span class="horario-day">Rede</span><span class="horario-time">HÓSPEDES</span></div>
+          <div class="horario-row" style="padding:6px 0"><span class="horario-day">Rede</span><span class="horario-time">Hospedes_vila_italia 2G/5G</span></div>
           <div class="horario-row" style="padding:6px 0;border-bottom:none"><span class="horario-day">Senha</span><span class="horario-time">MAMMAMIA452</span></div>
         </div>
       </div>
@@ -377,7 +421,15 @@
         <div class="horario-row"><span class="horario-day">Funcionamento</span><span class="horario-time">8h30 às 21h</span></div>
         <div class="horario-row"><span class="horario-day">Profundidade máx.</span><span class="horario-time">2,20 m</span></div>
       </div>
-      <p style="font-size:13px;color:var(--text-light);margin-top:10px">⚠️ Crianças sempre acompanhadas. Use a ducha antes de entrar. Toalhas brancas proibidas — aluguel de toalha de piscina: R$10.</p>
+      <p style="font-size:13px;color:var(--text-light);margin-top:10px">⚠️ Crianças sempre acompanhadas. Use a ducha antes de entrar. Toalhas brancas proibidas.</p>
+      <div style="background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:4px;padding:12px 14px;margin-top:10px">
+        <p style="font-size:14px;color:#C0392B;font-weight:600">⚠️ Profundidade: até 2,20m — Não temos salva-vidas</p>
+      </div>
+      <div style="background:rgba(74,55,40,.05);border-radius:4px;padding:12px 14px;margin-top:10px;font-size:13px;color:var(--text-light);line-height:1.8">
+        🍜 Macarrões flutuantes disponíveis para uso — guarde no pallete após usar<br>
+        🚿 Tome ducha antes de entrar<br>
+        🏖️ Aluguel de toalha de piscina: <strong style="color:var(--dark)">R$10</strong>
+      </div>
     </div>
 
     <div class="info-card">
@@ -395,13 +447,22 @@
         <div class="horario-row"><span class="horario-day">Faixa etária</span><span class="horario-time">2 a 10 anos</span></div>
         <div class="horario-row"><span class="horario-day">Permanência máx.</span><span class="horario-time">1h por criança</span></div>
       </div>
-      <p style="font-size:13px;color:var(--text-light);margin-top:8px">Uso de meias obrigatório. Crianças sempre acompanhadas.</p>
+      <p style="font-size:13px;color:var(--text-light);margin-top:8px">⚠️ Uso de <strong style="color:var(--dark)">meias antiderrapantes</strong> obrigatório (aquelas com bolinhas de borracha na sola). Crianças sempre acompanhadas.</p>
     </div>
 
     <div class="info-card">
       <div class="info-card-icon">🅿️</div>
       <h3>Estacionamento</h3>
       <p>Gratuito, rotativo, exclusivo para hóspedes. <strong style="color:var(--red)">Apenas 7 vagas.</strong> Informe a placa à recepção. A pousada não se responsabiliza por danos ou furtos nos veículos.</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-icon">🥤</div>
+      <h3>Máquina de Bebidas e Snacks</h3>
+      <p>Disponível para os hóspedes. Veja como funciona:</p>
+      <div class="video-wrap" style="margin-top:12px">
+        <iframe src="https://www.youtube.com/embed/BxBGCcmpuIE" allowfullscreen loading="lazy"></iframe>
+      </div>
     </div>
 
     <div class="info-card">
@@ -416,6 +477,7 @@
         <div class="horario-row"><span class="horario-day">Lençol extra</span><span class="horario-time">R$ 10,00</span></div>
         <div class="horario-row"><span class="horario-day">Toalha de banho extra</span><span class="horario-time">R$ 10,00</span></div>
         <div class="horario-row"><span class="horario-day">Travesseiro extra</span><span class="horario-time">R$ 10,00</span></div>
+        <div class="horario-row"><span class="horario-day">Toalha piscina (aluguel)</span><span class="horario-time">R$ 10,00</span></div>
       </div>
     </div>
 
@@ -463,7 +525,7 @@
     </div>
     <div class="info-card">
       <div class="tag" style="background:#E8A020;color:white">Espaço Kids</div>
-      <div class="rule-item"><span class="rule-num">✓</span><span>Para crianças de 2 a 10 anos. Uso de meias obrigatório. Máximo 1h por criança.</span></div>
+      <div class="rule-item"><span class="rule-num">✓</span><span>Para crianças de 2 a 10 anos. Uso de <strong>meias antiderrapantes</strong> obrigatório. Máximo 1h por criança.</span></div>
       <div class="rule-item"><span class="rule-num">✓</span><span>Crianças sempre acompanhadas. Guardar brinquedos após uso.</span></div>
       <div class="rule-item"><span class="rule-num">⛔</span><span>Proibido alimentos/bebidas, correr ou empurrar.</span></div>
     </div>
@@ -529,14 +591,14 @@
       <div class="menu-item"><div><div class="menu-item-name">Batata Frita</div><div class="menu-item-desc">250g</div></div><div class="menu-item-price">R$20</div></div>
       <div class="menu-item"><div><div class="menu-item-name">Salgadinho Porção</div><div class="menu-item-desc">12 un. — bolinha de queijo, coxinha, croquete carne de sol</div></div><div class="menu-item-price">R$25</div></div>
       <div class="menu-section-title">Massas</div>
-      <div class="menu-item"><div><div class="menu-item-name">Macarrão Alho e Óleo</div></div><div class="menu-item-price">R$35</div></div>
-      <div class="menu-item"><div><div class="menu-item-name">Macarrão Pomodoro</div><div class="menu-item-desc">Espaguete com tomate</div></div><div class="menu-item-price">R$35</div></div>
-      <div class="menu-item"><div><div class="menu-item-name">Macarrão Bolognese</div><div class="menu-item-desc">Espaguete com carne moída</div></div><div class="menu-item-price">R$39</div></div>
-      <div class="menu-item"><div><div class="menu-item-name">Macarrão Carbonara</div><div class="menu-item-desc">Bacon, ovo e parmesão</div></div><div class="menu-item-price">R$39</div></div>
-      <div class="menu-item"><div><div class="menu-item-name">Macarrão Pesto</div><div class="menu-item-desc">Pesto de manjericão, azeite e parmesão</div></div><div class="menu-item-price">R$39</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Troccolì Alho e Óleo</div><div class="menu-item-desc">Massa fresca caseira</div></div><div class="menu-item-price">R$35</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Troccolì Pomodoro</div><div class="menu-item-desc">Massa fresca caseira com tomate</div></div><div class="menu-item-price">R$35</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Troccolì Bolognese</div><div class="menu-item-desc">Massa fresca caseira com carne moída</div></div><div class="menu-item-price">R$39</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Troccolì Carbonara</div><div class="menu-item-desc">Massa fresca caseira, bacon, ovo e parmesão</div></div><div class="menu-item-price">R$39</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Troccolì Pesto</div><div class="menu-item-desc">Massa fresca caseira, pesto de manjericão, azeite e parmesão</div></div><div class="menu-item-price">R$39</div></div>
       <div class="menu-section-title">Lanches</div>
       <div class="menu-item"><div><div class="menu-item-name">Chesse Burger + Batatinha</div><div class="menu-item-desc">Pão, carne, queijo, molho especial + 150g batata</div></div><div class="menu-item-price">R$33</div></div>
-      <div class="menu-item"><div><div class="menu-item-name">Cheese Bacon + Batatinha</div><div class="menu-item-desc">Pão, carne, queijo, salada, molho especial + 150g batata</div></div><div class="menu-item-price">R$35</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Cheese Salada + Batatinha</div><div class="menu-item-desc">Pão, carne, queijo, salada, molho especial + 150g batata</div></div><div class="menu-item-price">R$35</div></div>
       <div class="menu-section-title">Porções</div>
       <div class="menu-item"><div><div class="menu-item-name">Arroz Branco</div><div class="menu-item-desc">150g</div></div><div class="menu-item-price">R$12</div></div>
       <div class="menu-item"><div><div class="menu-item-name">Baião</div><div class="menu-item-desc">200g</div></div><div class="menu-item-price">R$20</div></div>
@@ -582,70 +644,51 @@
   <div class="section-header">
     <button class="back-btn" onclick="showHome()">← Voltar</button>
     <p class="hero-ornament" style="margin-bottom:10px">Exclusivo para hóspedes</p>
-    <h2 class="section-title"><em>Benefícios</em></h2>
+    <h2 class="section-title"><em>Melhore sua</em><br>Estadia</h2>
   </div>
   <div class="section-body">
-    <div class="benefit-card">
-      <div class="benefit-header"><span class="benefit-icon">🎢</span><span class="benefit-title">Beach Park</span><span class="benefit-discount">Desconto</span></div>
-      <div class="benefit-body"><p>Desconto especial nos ingressos do maior parque aquático do Brasil, a 700 m da pousada.</p><p><strong style="color:var(--dark)">Como obter:</strong> Fale com a recepção antes da visita.</p></div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-header"><span class="benefit-icon">🌊</span><span class="benefit-title">Parque Engenhoca</span><span class="benefit-discount">Desconto + Água de Coco</span></div>
-      <div class="benefit-body"><p>Desconto exclusivo com brinde de água de coco incluso.</p><a href="https://parqueengenhocaafiliados.com.br?eng_token/ref=66" target="_blank">Acessar link do desconto →</a></div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-header"><span class="benefit-icon">⚡</span><span class="benefit-title">Elektroid</span><span class="benefit-discount">5% OFF</span></div>
-      <div class="benefit-body"><p>Capinha à prova d'água, cabinhos, fone, caixa de som, power bank.</p><p><strong style="color:var(--dark)">Onde:</strong> Estacionamento do EcoMall (Supermercado Pinheiro)</p></div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-header"><span class="benefit-icon">💝</span><span class="benefit-title">Pacotes Românticos</span><span class="benefit-discount">Surpresa no quarto</span></div>
-      <div class="benefit-body">
-        <p style="margin-bottom:14px">Celebre o amor com uma surpresa especial preparada no seu quarto!</p>
-        <div style="border-bottom:1px solid rgba(74,55,40,.08);padding-bottom:12px;margin-bottom:12px">
-          <div style="font-weight:600;color:var(--dark);margin-bottom:4px">Amor Simples — <span style="color:var(--terracotta)">R$60</span></div>
-          <div style="font-size:13px;color:var(--text-light)">Pétalas em formato de coração ❤️ + Cartinha impressa personalizada 💌</div>
+
+    <div class="info-card" style="background:var(--dark);border-color:rgba(201,168,76,.3);margin-bottom:14px">
+      <div style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:600">Surpresas no Quarto</div>
+
+      <div style="border-bottom:1px solid rgba(245,240,232,.1);padding-bottom:14px;margin-bottom:14px">
+        <div style="font-size:16px;font-weight:600;color:var(--cream);margin-bottom:8px">💝 Pacotes Românticos</div>
+        <div style="font-size:13px;color:rgba(245,240,232,.75);line-height:2">
+          Amor Simples — <strong style="color:var(--gold)">R$60</strong> · Pétalas + cartinha personalizada<br>
+          Doce Amor — <strong style="color:var(--gold)">R$90</strong> · Pétalas + cartinha + bombom + Coca 1L<br>
+          Brinde ao Amor — <strong style="color:var(--gold)">R$110</strong> · Pétalas + cartinha + bombom + espumante<br>
+          Top Romântico — <strong style="color:var(--gold)">R$190</strong> · Tudo acima + frutas fatiadas + mini torta 600g
         </div>
-        <div style="border-bottom:1px solid rgba(74,55,40,.08);padding-bottom:12px;margin-bottom:12px">
-          <div style="font-weight:600;color:var(--dark);margin-bottom:4px">Doce Amor — <span style="color:var(--terracotta)">R$90</span></div>
-          <div style="font-size:13px;color:var(--text-light)">Pétalas + Cartinha + Caixa de bombom Garoto ou Lacta 🍫 + Coca-Cola 1L 🍷</div>
+        <p style="font-size:11px;color:rgba(245,240,232,.4);margin-top:8px;font-style:italic">Solicite pelo WhatsApp antes do check-in</p>
+      </div>
+
+      <div style="border-bottom:1px solid rgba(245,240,232,.1);padding-bottom:14px;margin-bottom:14px">
+        <div style="font-size:16px;font-weight:600;color:var(--cream);margin-bottom:8px">🎉 Kit Comemoração</div>
+        <div style="font-size:13px;color:rgba(245,240,232,.75);line-height:2">
+          Kit Festa 01 — <strong style="color:var(--gold)">R$99</strong> · Torta 600g + 50 salgadinhos + Coca 1L<br>
+          Kit Festa 02 — <strong style="color:var(--gold)">R$159</strong> · Torta 1.100g + 100 salgadinhos + Coca 1L
         </div>
-        <div style="border-bottom:1px solid rgba(74,55,40,.08);padding-bottom:12px;margin-bottom:12px">
-          <div style="font-weight:600;color:var(--dark);margin-bottom:4px">Brinde ao Amor — <span style="color:var(--terracotta)">R$110</span></div>
-          <div style="font-size:13px;color:var(--text-light)">Pétalas + Cartinha + Caixa de bombom + Espumante 🥂</div>
+        <p style="font-size:11px;color:rgba(245,240,232,.4);margin-top:8px;font-style:italic">Solicite pelo WhatsApp antes do check-in</p>
+      </div>
+
+      <div>
+        <div style="font-size:16px;font-weight:600;color:var(--cream);margin-bottom:8px">🕐 Checkout Tardio</div>
+        <div style="font-size:13px;color:rgba(245,240,232,.75);line-height:2">
+          Até as 17h: <strong style="color:var(--gold)">+30% da diária</strong><br>
+          Após as 17h: <strong style="color:#E07070">diária completa</strong>
         </div>
-        <div style="padding-bottom:4px">
-          <div style="font-weight:600;color:var(--dark);margin-bottom:4px">Top Romântico — <span style="color:var(--terracotta)">R$190</span></div>
-          <div style="font-size:13px;color:var(--text-light)">Pétalas + Cartinha + Caixa de bombom + Espumante OU Coca-Cola 1L + Frutas fatiadas 🍓🍍 + Mini torta 600g 🎂</div>
-        </div>
-        <p style="font-size:12px;color:var(--text-light);margin-top:12px;font-style:italic">*A cartinha personalizada é sempre impressa com carinho. Envie sua mensagem e deixe o resto com a gente!</p>
-        <p style="font-size:13px;color:var(--dark);font-weight:500;margin-top:10px">Como contratar: fale pelo WhatsApp antes do check-in 💬</p>
+        <p style="font-size:11px;color:rgba(245,240,232,.4);margin-top:8px">Sujeito à disponibilidade · Solicite pelo WhatsApp</p>
       </div>
     </div>
 
-    <div class="benefit-card">
-      <div class="benefit-header"><span class="benefit-icon">🎉</span><span class="benefit-title">Kit Comemoração</span><span class="benefit-discount">Festa no quarto</span></div>
-      <div class="benefit-body">
-        <div style="border-bottom:1px solid rgba(74,55,40,.08);padding-bottom:12px;margin-bottom:12px">
-          <div style="font-weight:600;color:var(--dark);margin-bottom:4px">Kit Festa 01 — <span style="color:var(--terracotta)">R$99</span></div>
-          <div style="font-size:13px;color:var(--text-light)">Torta 600g + 50 salgadinhos + Coca-Cola 1L</div>
-        </div>
-        <div>
-          <div style="font-weight:600;color:var(--dark);margin-bottom:4px">Kit Festa 02 — <span style="color:var(--terracotta)">R$159</span></div>
-          <div style="font-size:13px;color:var(--text-light)">Torta 1.100g + 100 salgadinhos + Coca-Cola 1L</div>
-        </div>
-        <p style="font-size:13px;color:var(--dark);font-weight:500;margin-top:12px">Como contratar: fale pelo WhatsApp antes do check-in 💬</p>
-      </div>
-    </div>
+    <a href="https://wa.me/5585991727796" target="_blank" class="cta-btn" style="background:#25D366;justify-content:center;gap:10px;font-size:15px;margin-bottom:14px">
+      💬 Solicitar pelo WhatsApp
+    </a>
 
-    <div class="benefit-card">
-      <div class="benefit-header"><span class="benefit-icon">🌴</span><span class="benefit-title">Passeios com Desconto</span><span class="benefit-discount">Preço especial</span></div>
-      <div class="benefit-body"><p>Preços especiais em passeios pela região. Consulte a aba <strong style="color:var(--dark)">Passeios</strong>.</p></div>
-    </div>
   </div>
-  <div class="footer">Vila Italia · Aquiraz · Ceará</div>
+  <div class="footer">Vila Italia · Porto das Dunas · Aquiraz · Ceará</div>
 </div>
 
-<!-- PASSEIOS -->
 <div id="passeios" class="section">
   <div class="section-header">
     <button class="back-btn" onclick="showHome()">← Voltar</button>
@@ -658,6 +701,7 @@
       <p style="font-size:13px;color:var(--text-light)">💡 Oferecemos desconto em cima dos preços de tabela. Fale com a recepção para contratar. Preços por pessoa, sujeitos à disponibilidade e formação de grupo.</p>
     </div>
     <div class="info-card">
+      <div class="passeio-item"><div><div class="passeio-name">Beach Park</div><div class="passeio-dist">700 m · Maior parque aquático do Brasil</div></div><div class="passeio-price"><div class="original">Ingresso oficial</div><div class="discounted">Consulte</div></div></div>
       <div class="passeio-item"><div><div class="passeio-name">Cumbuco</div><div class="passeio-dist">36 km · Dunas + piscina</div></div><div class="passeio-price"><div class="original">R$ 70,00</div><div class="discounted">Consulte</div></div></div>
       <div class="passeio-item"><div><div class="passeio-name">Paracuru</div><div class="passeio-dist">90 km · Piscinas + lagoas</div></div><div class="passeio-price"><div class="original">R$ 100,00</div><div class="discounted">Consulte</div></div></div>
       <div class="passeio-item"><div><div class="passeio-name">Lagoinha</div><div class="passeio-dist">110 km · Pôr do sol</div></div><div class="passeio-price"><div class="original">R$ 100,00</div><div class="discounted">Consulte</div></div></div>
@@ -672,6 +716,67 @@
   <div class="footer">Vila Italia · Aquiraz · Ceará</div>
 </div>
 
+
+<!-- PARCERIAS -->
+<div id="parcerias" class="section">
+  <div class="section-header">
+    <button class="back-btn" onclick="showHome()">← Voltar</button>
+    <p class="hero-ornament" style="margin-bottom:10px">Exclusivo para hóspedes</p>
+    <h2 class="section-title"><em>Parcerias</em></h2>
+    <p class="section-sub">Descontos e benefícios especiais</p>
+  </div>
+  <div class="section-body">
+
+    <div class="benefit-card">
+      <div class="benefit-header"><span class="benefit-icon">🍔</span><span class="benefit-title">567 Burger</span><span class="benefit-discount">10% OFF + Batata</span></div>
+      <div class="benefit-body">
+        <p>Hamburgeria no Porto das Dunas com desconto exclusivo para hóspedes da Vila Italia!</p>
+        <p>Apresente que é hóspede e ganhe <strong style="color:var(--dark)">10% de desconto no garçom</strong> + <strong style="color:var(--dark)">uma batata pequena de brinde</strong>.</p>
+        <p style="font-size:12px;color:var(--text-light)">⚠️ Oferta válida somente na unidade Porto das Dunas.</p>
+        <a href="https://www.instagram.com/567burger?igsh=MXJubXcydGQ1cThrZw==" target="_blank" class="cta-btn instagram" style="background:#E1306C;color:white;font-weight:600;margin-top:10px">📸 @567burger →</a>
+      </div>
+    </div>
+
+    <div class="benefit-card">
+      <div class="benefit-header"><span class="benefit-icon">🌊</span><span class="benefit-title">Parque Engenhoca</span><span class="benefit-discount">Desconto + Água de Coco</span></div>
+      <div class="benefit-body">
+        <p>Desconto exclusivo com brinde de água de coco incluso.</p>
+        <a href="https://parqueengenhocaafiliados.com.br?eng_token/ref=66" target="_blank" style="display:inline-block;margin-top:8px;color:var(--terracotta);font-size:13px;font-weight:500;text-decoration:none;border-bottom:1px solid currentColor">Acessar link do desconto →</a>
+      </div>
+    </div>
+
+    <div class="benefit-card">
+      <div class="benefit-header"><span class="benefit-icon">⚡</span><span class="benefit-title">Elektroid</span><span class="benefit-discount">5% OFF + Frete Grátis</span></div>
+      <div class="benefit-body">
+        <p>Loja de acessórios eletrônicos: capinha à prova d&#39;água, cabinhos, fone, caixa de som, power bank.</p>
+        <p>Compras acima de <strong style="color:var(--dark)">R$70</strong>: frete grátis + 5% de desconto.</p>
+        <p><strong style="color:var(--dark)">Onde:</strong> Estacionamento do EcoMall (Supermercado Pinheiro)</p>
+        <a href="https://maps.app.goo.gl/Ya8QsppGReQxgqbt5" target="_blank" class="cta-btn maps" style="margin-top:10px">📍 Ver no Google Maps →</a>
+        <a href="https://wa.me/5585999008436" target="_blank" class="cta-btn" style="background:#25D366;margin-top:8px;justify-content:center">💬 WhatsApp: (85) 99900-8436 →</a>
+      </div>
+    </div>
+
+    <div class="benefit-card">
+      <div class="benefit-header"><span class="benefit-icon">🎮</span><span class="benefit-title">Super Máquinas Museu</span><span class="benefit-discount">10% OFF</span></div>
+      <div class="benefit-body">
+        <p>Museu de máquinas em Eusébio com 10% de desconto no ingresso para hóspedes da Vila Italia.</p>
+        <p>Apresente que é hóspede para obter o desconto.</p>
+        <a href="https://www.instagram.com/supermaquinasfortaleza?igsh=MXZuZ2dodnU2d3ZoMw==" target="_blank" class="cta-btn instagram" style="background:#E1306C;color:white;font-weight:600;margin-top:10px">📸 @supermaquinasfortaleza →</a>
+      </div>
+    </div>
+
+    <div class="benefit-card">
+      <div class="benefit-header"><span class="benefit-icon">🚁</span><span class="benefit-title">North Star Táxi Aéreo</span><span class="benefit-discount">5% OFF</span></div>
+      <div class="benefit-body">
+        <p>5% de desconto nos voos de helicóptero para hóspedes da Vila Italia.</p>
+        <p>Uma experiência única para ver o litoral cearense de cima!</p>
+        <a href="https://www.instagram.com/northstartaxiaereo?igsh=MXJveDdocWo4cjBmMQ==" target="_blank" class="cta-btn instagram" style="background:#E1306C;color:white;font-weight:600;margin-top:10px">📸 @northstartaxiaereo →</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">Vila Italia · Porto das Dunas · Aquiraz · Ceará</div>
+</div>
 
 <!-- CHECK-IN ONLINE -->
 <div id="checkin" class="section">
@@ -827,7 +932,7 @@
       <div class="info-card-icon">📸</div>
       <h3>Siga no Instagram</h3>
       <p style="margin-bottom:4px">Veja os Reels do seu quarto e marque a pousada!</p>
-      <a href="https://www.instagram.com/pousadavilaitalia?igsh=MWRxeGt6a3E3dmJkOQ==" target="_blank" class="cta-btn instagram">📷 @pousadavilaitalia <span>→</span></a>
+      <a href="https://www.instagram.com/pousadavilaitalia?igsh=MWRxeGt6a3E3dmJkOQ==" target="_blank" class="cta-btn instagram" style="background:#E1306C;color:white;font-weight:600">📷 @pousadavilaitalia <span>→</span></a>
     </div>
 
   </div>
@@ -890,38 +995,65 @@ var SUITES = {
   "vila208": { name:"Genova", number:"208", gateLogin:"lagenova208@gmail.com", gatePass:"vilaitalia123", notes:["Mini cozinha disponivel no quarto", "AVISO: A camareira nao lava louca - deixe organizado o que for usado", "Secador de cabelo disponivel no quarto"] }
 };
 
-var ADMIN_PASS = "vilaitalia2025";
-var cachedTTLocks = null;
-
+var ADMIN_PASS = "5555";
 // ===== JSONBIN FUNCTIONS =====
 function loadTTLocks(callback) {
-  if (cachedTTLocks) { callback(cachedTTLocks); return; }
+  var done = false;
+  var timer = setTimeout(function() {
+    if (!done) { done = true; callback({}); }
+  }, 8000);
   fetch(JSONBIN_URL + "/latest", {
+    cache: "no-store",
     headers: { "X-Master-Key": JSONBIN_KEY, "X-Bin-Meta": "false" }
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {
-    cachedTTLocks = data.ttlocks || {};
-    callback(cachedTTLocks);
+    if (!done) {
+      done = true;
+      clearTimeout(timer);
+      callback(data.ttlocks || {});
+    }
   })
   .catch(function() {
-    cachedTTLocks = {};
-    callback({});
+    if (!done) {
+      done = true;
+      clearTimeout(timer);
+      callback({});
+    }
   });
 }
 
 function saveTTLocksCloud(ttlocks, callback) {
-  cachedTTLocks = ttlocks;
-  fetch(JSONBIN_URL, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Master-Key": JSONBIN_KEY
-    },
-    body: JSON.stringify({ ttlocks: ttlocks })
-  })
-  .then(function() { if (callback) callback(true); })
-  .catch(function() { if (callback) callback(false); });
+  // Try 3 times
+  var attempts = 0;
+  function trySave() {
+    attempts++;
+    fetch(JSONBIN_URL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Master-Key": JSONBIN_KEY
+      },
+      body: JSON.stringify({ ttlocks: ttlocks })
+    })
+    .then(function(r) {
+      if (r.ok) {
+        if (callback) callback(true);
+      } else if (attempts < 3) {
+        setTimeout(trySave, 1000);
+      } else {
+        if (callback) callback(false);
+      }
+    })
+    .catch(function() {
+      if (attempts < 3) {
+        setTimeout(trySave, 1000);
+      } else {
+        if (callback) callback(false);
+      }
+    });
+  }
+  trySave();
 }
 
 function findSuiteByTTLock(input, ttlocks) {
@@ -956,6 +1088,7 @@ function showHome() {
   document.getElementById("codeInput").value = "";
   document.getElementById("codeError").textContent = "";
   document.getElementById("suiteResult").style.display = "none";
+  currentSuiteCode = null;
   window.scrollTo(0, 0);
 }
 
@@ -982,7 +1115,12 @@ function checkCode() {
     document.getElementById("resultTTLock").textContent = input;
     document.getElementById("ttlockFixed").style.display = "block";
     document.getElementById("ttlockDynamic").style.display = "none";
-    document.getElementById("suite107video").style.display = (suiteCode === "vila107") ? "block" : "none";
+    document.getElementById("acc-107").style.display = (suiteCode === "vila107") ? "block" : "none";
+  document.getElementById("acc-sauna").style.display = (suiteCode === "vila206") ? "block" : "none";
+  currentSuiteCode = suiteCode;
+  document.getElementById("consumoResult") && (document.getElementById("consumoResult").style.display = "none");
+  document.getElementById("consumoResult").style.display = "none";
+  currentSuiteCode = suiteCode;
     var notesEl = document.getElementById("suiteNotes");
     if (suite.notes && suite.notes.length > 0) {
       var html = "";
@@ -1082,23 +1220,276 @@ function saveSuiteAdmin(code) {
   var val = document.getElementById("ttlock_" + code).value.trim();
   if (!val) { alert("Digite a senha."); return; }
   var btn = document.querySelector("[data-code='" + code + "']");
-  if (btn) btn.textContent = "...";
+  var el = document.getElementById("saved_" + code);
+  if (btn) { btn.textContent = "..."; btn.disabled = true; }
+  el.textContent = "Salvando...";
+  el.style.color = "rgba(245,240,232,.6)";
+  el.style.display = "block";
   loadTTLocks(function(ttlocks) {
     ttlocks[code] = val;
     saveTTLocksCloud(ttlocks, function(ok) {
-      var el = document.getElementById("saved_" + code);
       if (ok) {
         el.textContent = "Salvo na nuvem!";
         el.style.color = "#7A8C6E";
       } else {
-        el.textContent = "Erro ao salvar!";
+        el.textContent = "Erro! Tente novamente.";
         el.style.color = "#C0392B";
       }
-      el.style.display = "block";
-      if (btn) btn.textContent = "Salvar";
-      setTimeout(function(){ el.style.display = "none"; renderAdminSuites(); }, 2000);
+      if (btn) { btn.textContent = "Salvar"; btn.disabled = false; }
+      setTimeout(function(){
+        el.style.display = "none";
+        if(ok) renderAdminSuites();
+      }, 2500);
     });
   });
+}
+// ===== CONSUMO FUNCTIONS =====
+
+var FRIGOBAR_ITEMS = [
+  { name: "Agua", price: 5 },
+  { name: "Agua com Gas", price: 5 },
+  { name: "Coca-Cola", price: 8 },
+  { name: "Coca Zero", price: 8 },
+  { name: "Guarana", price: 8 },
+  { name: "Schweppes", price: 8 },
+  { name: "Cerveja Heineken", price: 12 },
+  { name: "Achocolatado", price: 6 },
+  { name: "Biscoito Doce", price: 5 },
+  { name: "Amendoim ou Salgadinho", price: 5 }
+];
+
+var RESTAURANTE_ITEMS = [
+  { name: "Batata Frita", price: 20 },
+  { name: "Salgadinho Porcao", price: 25 },
+  { name: "Troccoli Alho e Oleo", price: 35 },
+  { name: "Troccoli Pomodoro", price: 35 },
+  { name: "Troccoli Bolognese", price: 39 },
+  { name: "Troccoli Carbonara", price: 39 },
+  { name: "Troccoli Pesto", price: 39 },
+  { name: "Chesse Burger + Batatinha", price: 33 },
+  { name: "Cheese Salada + Batatinha", price: 35 },
+  { name: "Arroz Branco", price: 12 },
+  { name: "Baiao", price: 20 },
+  { name: "Lasanha Caseira Bolonhesa", price: 99 },
+  { name: "Picanha", price: 119 },
+  { name: "Pizza Mozzarela", price: 45 },
+  { name: "Pizza Bufala", price: 55 },
+  { name: "Pizza Calabresa", price: 55 },
+  { name: "Pizza Atum e Cebola", price: 55 },
+  { name: "Pizza Frango Cream Cheese", price: 55 },
+  { name: "Pizza Portuguesa", price: 55 },
+  { name: "Pizza Peperoni", price: 59 },
+  { name: "Pizza 4 Formaggi", price: 59 },
+  { name: "Pizza Parma", price: 65 },
+  { name: "Pizza Nordestina", price: 65 },
+  { name: "Pizza Patatosa", price: 65 },
+  { name: "Pizza Explosiva", price: 65 },
+  { name: "Pizza Crema de Avela", price: 45 },
+  { name: "Pizza Cartola", price: 45 },
+  { name: "Refrigerante Lata", price: 8 },
+  { name: "Refrigerante 1L", price: 14 },
+  { name: "Suco Copo 300ml", price: 10 },
+  { name: "Suco Jarra 900ml", price: 18 },
+  { name: "Heineken Lata", price: 12 }
+];
+
+var PASSEIOS_ITEMS = [
+  { name: "Beach Park", price: 0 },
+  { name: "Cumbuco", price: 70 },
+  { name: "Paracuru", price: 100 },
+  { name: "Lagoinha", price: 100 },
+  { name: "Canoa Quebrada", price: 100 },
+  { name: "Flecheiras", price: 100 },
+  { name: "3 Praias em 1 Dia", price: 140 },
+  { name: "Icarai de Amontada", price: 250 },
+  { name: "Fortim", price: 100 },
+  { name: "Jericoacoara", price: 300 }
+];
+
+var KITS_ITEMS = [
+  { name: "Amor Simples", price: 60 },
+  { name: "Doce Amor", price: 90 },
+  { name: "Brinde ao Amor", price: 110 },
+  { name: "Top Romantico", price: 190 },
+  { name: "Kit Festa 01", price: 99 },
+  { name: "Kit Festa 02", price: 159 }
+];
+
+function getConsumos() {
+  try { return JSON.parse(localStorage.getItem("vi_consumos") || "{}"); } catch(e) { return {}; }
+}
+function saveConsumos(data) {
+  localStorage.setItem("vi_consumos", JSON.stringify(data));
+}
+
+function getItemsForCat(cat) {
+  if (cat === "frigobar") return FRIGOBAR_ITEMS;
+  if (cat === "restaurante") return RESTAURANTE_ITEMS;
+  if (cat === "passeios") return PASSEIOS_ITEMS;
+  if (cat === "kits") return KITS_ITEMS;
+  return [];
+}
+
+function updateConsumoItems() {
+  var cat = document.getElementById("consumoCat").value;
+  var itemsDiv = document.getElementById("consumoItemsDiv");
+  var livreDiv = document.getElementById("consumoLivreDiv");
+  var sel = document.getElementById("consumoItem");
+  if (cat === "livre") {
+    itemsDiv.style.display = "none";
+    livreDiv.style.display = "block";
+    return;
+  }
+  itemsDiv.style.display = "block";
+  livreDiv.style.display = "none";
+  var items = getItemsForCat(cat);
+  sel.innerHTML = "";
+  for (var i = 0; i < items.length; i++) {
+    var opt = document.createElement("option");
+    opt.value = i;
+    opt.textContent = items[i].name + " - R$" + items[i].price.toFixed(2);
+    sel.appendChild(opt);
+  }
+}
+
+function loadConsumoAdmin() {
+  var suite = document.getElementById("consumoSuite").value;
+  var panel = document.getElementById("consumoAdminPanel");
+  if (!suite) { panel.style.display = "none"; return; }
+  panel.style.display = "block";
+  updateConsumoItems();
+  renderConsumoAdmin(suite);
+}
+
+function addConsumoItem() {
+  var suite = document.getElementById("consumoSuite").value;
+  if (!suite) return;
+  var cat = document.getElementById("consumoCat").value;
+  var consumos = getConsumos();
+  if (!consumos[suite]) consumos[suite] = [];
+  var item;
+  if (cat === "livre") {
+    var desc = document.getElementById("consumoDesc").value.trim();
+    var val = parseFloat(document.getElementById("consumoValor").value);
+    if (!desc) { alert("Digite a descricao."); return; }
+    if (isNaN(val)) { alert("Digite o valor."); return; }
+    item = { cat: "livre", name: desc, price: val, qty: 1 };
+    document.getElementById("consumoDesc").value = "";
+    document.getElementById("consumoValor").value = "";
+  } else {
+    var items = getItemsForCat(cat);
+    var idx = parseInt(document.getElementById("consumoItem").value);
+    var qty = parseInt(document.getElementById("consumoQty").value) || 1;
+    item = { cat: cat, name: items[idx].name, price: items[idx].price, qty: qty };
+    document.getElementById("consumoQty").value = "1";
+  }
+  consumos[suite].push(item);
+  saveConsumos(consumos);
+  renderConsumoAdmin(suite);
+}
+
+function removeConsumoItem(suite, idx) {
+  var consumos = getConsumos();
+  if (consumos[suite]) {
+    consumos[suite].splice(idx, 1);
+    saveConsumos(consumos);
+    renderConsumoAdmin(suite);
+  }
+}
+
+function clearConsumo() {
+  var suite = document.getElementById("consumoSuite").value;
+  if (!suite) return;
+  if (!confirm("Zerar consumo desta suite?")) return;
+  var consumos = getConsumos();
+  consumos[suite] = [];
+  saveConsumos(consumos);
+  renderConsumoAdmin(suite);
+}
+
+function renderConsumoAdmin(suite) {
+  var consumos = getConsumos();
+  var items = consumos[suite] || [];
+  var container = document.getElementById("consumoAdminList");
+  if (items.length === 0) {
+    container.innerHTML = "<div style='color:rgba(245,240,232,.35);font-size:13px;padding:8px 0'>Nenhum item lancado</div>";
+    return;
+  }
+  var total = 0;
+  var html = "";
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    var subtotal = it.price * it.qty;
+    total += subtotal;
+    html += "<div style='display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(245,240,232,.08);font-size:13px'>";
+    html += "<div style='color:rgba(245,240,232,.8)'>" + it.name + (it.qty > 1 ? " x" + it.qty : "") + "</div>";
+    html += "<div style='display:flex;align-items:center;gap:10px'>";
+    html += "<span style='color:var(--gold)'>R$" + subtotal.toFixed(2) + "</span>";
+    html += "<button data-suite='" + suite + "' data-idx='" + i + "' class='rm-consumo-btn' style='background:none;border:none;color:#E07070;cursor:pointer;font-size:16px;padding:0'>x</button>";
+    html += "</div></div>";
+  }
+  html += "<div style='display:flex;justify-content:space-between;padding:10px 0;font-weight:700'>";
+  html += "<span style='color:rgba(245,240,232,.5);font-size:12px;text-transform:uppercase;letter-spacing:1px'>Total</span>";
+  html += "<span style='color:var(--gold-light);font-size:16px'>R$" + total.toFixed(2) + "</span></div>";
+  container.innerHTML = html;
+  var btns = container.querySelectorAll(".rm-consumo-btn");
+  for (var b = 0; b < btns.length; b++) {
+    btns[b].addEventListener("click", function() {
+      removeConsumoItem(this.getAttribute("data-suite"), parseInt(this.getAttribute("data-idx")));
+    });
+  }
+}
+
+var currentSuiteCode = null;
+
+function showConsumo() {
+  var consumoList = document.getElementById("consumoList");
+  var consumoEmpty = document.getElementById("consumoEmpty");
+  var consumoTotal = document.getElementById("consumoTotal");
+  var consumoTotalValue = document.getElementById("consumoTotalValue");
+  if (!currentSuiteCode) return;
+  var consumos = getConsumos();
+  var items = consumos[currentSuiteCode] || [];
+  if (items.length === 0) {
+    consumoList.innerHTML = "";
+    consumoEmpty.style.display = "block";
+    consumoTotal.style.display = "none";
+    return;
+  }
+  consumoEmpty.style.display = "none";
+  var total = 0;
+  var html = "";
+  var catLabels = { frigobar: "Frigobar", restaurante: "Restaurante", passeios: "Passeios", kits: "Kits", livre: "Outros" };
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    var subtotal = it.price * it.qty;
+    total += subtotal;
+    html += "<div style='display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(245,240,232,.08);font-size:14px'>";
+    html += "<div><span style='font-size:10px;color:rgba(245,240,232,.4);display:block;letter-spacing:1px'>" + (catLabels[it.cat] || "Outros") + "</span>" + it.name + (it.qty > 1 ? " x" + it.qty : "") + "</div>";
+    html += "<span style='color:var(--gold);font-weight:600'>R$" + subtotal.toFixed(2) + "</span>";
+    html += "</div>";
+  }
+  consumoList.innerHTML = html;
+  consumoTotalValue.textContent = "R$" + total.toFixed(2);
+  consumoTotal.style.display = "flex";
+}
+
+function toggleAcc(id) {
+  var body = document.getElementById("body-" + id);
+  var btns = document.querySelectorAll(".accordion-btn");
+  var arrows = document.querySelectorAll(".acc-arrow");
+  if (!body) return;
+  var isOpen = body.style.display !== "none";
+  body.style.display = isOpen ? "none" : "block";
+  // Find the arrow in the parent button
+  var item = body.previousElementSibling;
+  if (item) {
+    var arrow = item.querySelector(".acc-arrow");
+    if (arrow) {
+      if (isOpen) arrow.classList.remove("open");
+      else arrow.classList.add("open");
+    }
+  }
 }
 </script>
 </body>
