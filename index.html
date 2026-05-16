@@ -960,8 +960,63 @@
     <button class="admin-logout" onclick="adminLogout()">Sair</button>
   </div>
   <div class="admin-content">
-    <div class="admin-section-title">Cadastrar senha TTLock por reserva</div>
-    <p style="font-size:13px;color:rgba(245,240,232,.45);margin-bottom:16px;line-height:1.6">As senhas TTLock mudam a cada reserva. Atualize aqui após gerar no app TTLock. A Suíte 107 Napoli usa senha fixa.</p>
+    <div class="admin-section-title">Lancar Consumo</div>
+    <div class="admin-form">
+      <label>Suite</label>
+      <select id="consumoSuite" onchange="loadConsumoAdmin()">
+        <option value="">Selecionar suite...</option>
+        <option value="vila101">101 - Amalfi</option>
+        <option value="vila102">102 - Verona</option>
+        <option value="vila103">103 - La Pelosa</option>
+        <option value="vila104">104 - Firenze</option>
+        <option value="vila105">105 - La Maddalena</option>
+        <option value="vila106">106 - Taormina</option>
+        <option value="vila107">107 - Napoli</option>
+        <option value="vila108">108 - Milano</option>
+        <option value="vila201">201 - Venezia</option>
+        <option value="vila202">202 - Isola de Capri</option>
+        <option value="vila203">203 - Pisa</option>
+        <option value="vila204">204 - Porto Cervo</option>
+        <option value="vila205">205 - Gargano</option>
+        <option value="vila206">206 - Ostuni</option>
+        <option value="vila207">207 - Roma</option>
+        <option value="vila208">208 - Genova</option>
+      </select>
+
+      <div id="consumoAdminPanel" style="display:none">
+        <label>Categoria</label>
+        <select id="consumoCat" onchange="updateConsumoItems()">
+          <option value="frigobar">Frigobar</option>
+          <option value="restaurante">Restaurante</option>
+          <option value="passeios">Passeios</option>
+          <option value="kits">Kits</option>
+          <option value="livre">Item livre</option>
+        </select>
+
+        <div id="consumoItemsDiv">
+          <label>Item</label>
+          <select id="consumoItem" style="width:100%;background:rgba(245,240,232,.06);border:1px solid rgba(201,168,76,.25);color:var(--cream);padding:11px 13px;font-size:14px;font-family:'DM Sans',sans-serif;border-radius:2px;outline:none;"></select>
+          <label>Quantidade</label>
+          <input type="number" class="admin-input" id="consumoQty" value="1" min="1" max="20" style="text-align:left;font-size:15px;letter-spacing:0;margin-bottom:0">
+        </div>
+
+        <div id="consumoLivreDiv" style="display:none">
+          <label>Descricao</label>
+          <input type="text" class="admin-input" id="consumoDesc" placeholder="ex: Vinho Tinto" style="text-align:left;font-size:14px;letter-spacing:0;margin-bottom:0">
+          <label>Valor (R$)</label>
+          <input type="number" class="admin-input" id="consumoValor" placeholder="0.00" min="0" step="0.01" style="text-align:left;font-size:14px;letter-spacing:0;margin-bottom:0">
+        </div>
+
+        <button class="admin-btn" style="margin-top:16px" onclick="addConsumoItem()">+ Adicionar Item</button>
+
+        <div class="admin-section-title" style="margin-top:20px">Consumo atual</div>
+        <div id="consumoAdminList" style="margin-bottom:12px"></div>
+        <button class="admin-btn" style="background:rgba(192,57,43,.3);color:#E07070;margin-top:4px" onclick="clearConsumo()">Zerar consumo desta suite</button>
+      </div>
+    </div>
+
+    <div class="admin-section-title">Senhas TTLock por reserva</div>
+    <p style="font-size:13px;color:rgba(245,240,232,.8);margin-bottom:16px;line-height:1.6">Cadastre a senha gerada no app TTLock. O hospede usa essa mesma senha para acessar o site. Suite 107 Napoli usa senha fixa.</p>
     <div id="suiteListAdmin"></div>
   </div>
 </div>
