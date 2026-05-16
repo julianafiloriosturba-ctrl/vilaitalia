@@ -291,7 +291,7 @@
       <div class="accordion-body" id="body-consumo" style="display:none">
         <div id="consumoList"></div>
         <div id="consumoEmpty" style="font-size:14px;color:rgba(245,240,232,.4);text-align:center;padding:16px">Nenhum consumo lancado ainda.</div>
-        <div id="consumoTotal" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(201,168,76,.2);display:flex;justify-content:space-between;align-items:center">
+        <div id="consumoTotal" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(201,168,76,.2);justify-content:space-between;align-items:center">
           <span style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.5)">Total</span>
           <span id="consumoTotalValue" style="font-size:22px;font-weight:700;color:var(--gold-light)"></span>
         </div>
@@ -1011,7 +1011,7 @@ function loadTTLocks(callback) {
     if (!done) {
       done = true;
       clearTimeout(timer);
-      callback(data.ttlocks || {});
+      var rec = data.record || data; callback(rec.ttlocks || {});
     }
   })
   .catch(function() {
@@ -1116,11 +1116,8 @@ function checkCode() {
     document.getElementById("ttlockFixed").style.display = "block";
     document.getElementById("ttlockDynamic").style.display = "none";
     document.getElementById("acc-107").style.display = (suiteCode === "vila107") ? "block" : "none";
-  document.getElementById("acc-sauna").style.display = (suiteCode === "vila206") ? "block" : "none";
-  currentSuiteCode = suiteCode;
-  document.getElementById("consumoResult") && (document.getElementById("consumoResult").style.display = "none");
-  document.getElementById("consumoResult").style.display = "none";
-  currentSuiteCode = suiteCode;
+    document.getElementById("acc-sauna").style.display = (suiteCode === "vila206") ? "block" : "none";
+    currentSuiteCode = suiteCode;
     var notesEl = document.getElementById("suiteNotes");
     if (suite.notes && suite.notes.length > 0) {
       var html = "";
@@ -1146,6 +1143,7 @@ function checkCode() {
     result.scrollIntoView({ behavior: "smooth" });
   });
 }
+
 
 function copyField(id, btn) {
   var text = document.getElementById(id).textContent;
