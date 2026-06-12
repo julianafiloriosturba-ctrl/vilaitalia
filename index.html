@@ -1284,6 +1284,42 @@ function renderAdminSuites() {
     }
   });
 }
+function saveAllSuites() {
+  var status = document.getElementById("saveAllStatus");
+  status.style.display = "block";
+  status.style.color = "rgba(245,240,232,.6)";
+  status.textContent = "Salvando todas...";
+  loadTTLocks(function(ttlocks) {
+    var keys = Object.keys(SUITES);
+    var count = 0;
+    for (var i = 0; i < keys.length; i++) {
+      var code = keys[i];
+      if (SUITES[code].fixedTTLock) continue;
+      var input = document.getElementById("ttlock_" + code);
+      if (input && input.value.trim()) {
+        ttlocks[code] = input.value.trim();
+        count++;
+      }
+    }
+    if (count === 0) {
+      status.textContent = "Nenhuma senha preenchida.";
+      status.style.color = "#C0392B";
+      return;
+    }
+    saveTTLocksCloud(ttlocks, function(ok) {
+      if (ok) {
+        status.textContent = "✅ " + count + " senhas salvas na nuvem!";
+        status.style.color = "#7A8C6E";
+        setTimeout(function(){ status.style.display = "none"; renderAdminSuites(); }, 2500);
+      } else {
+        status.textContent = "Erro ao salvar. Tente novamente.";
+        status.style.color = "#C0392B";
+      }
+    });
+  });
+}
+
+
 function saveSuiteAdmin(code) {
   var val = document.getElementById("ttlock_" + code).value.trim();
   if (!val) { alert("Digite a senha."); return; }
