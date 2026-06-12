@@ -1031,7 +1031,9 @@
     <div class="admin-section-title">Senhas TTLock por reserva</div>
     <p style="font-size:13px;color:rgba(245,240,232,.8);margin-bottom:16px;line-height:1.6">Cadastre a senha gerada no app TTLock. O hospede usa essa mesma senha para acessar o site. Suite 107 Napoli usa senha fixa.</p>
     <div id="suiteListAdmin"></div>
-  </div>
+    <button class="admin-btn" style="margin-top:16px" onclick="saveAllSuites()">💾 Salvar TODAS as senhas</button>
+    <p id="saveAllStatus" style="font-size:13px;text-align:center;margin-top:10px;display:none"></p>
+
 </div>
 
 <div id="adminTrigger" style="position:fixed;bottom:0;right:0;width:60px;height:60px;z-index:999;opacity:0;cursor:default" onclick="adminTap()"></div>
